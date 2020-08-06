@@ -1,0 +1,3 @@
+require_relative '../app/garderie_rainbow_daily_agenda'
+
+GarderieRainbowDailyAgenda.new.open
