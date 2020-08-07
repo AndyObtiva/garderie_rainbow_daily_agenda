@@ -2,6 +2,7 @@ $LOAD_PATH.unshift(File.expand_path('..', __FILE__))
 
 require 'bundler/setup'
 Bundler.require(:default)
+require 'puts_debuggerer'
 require 'views/garderie_rainbow_daily_agenda/app_view'
 
 class GarderieRainbowDailyAgenda

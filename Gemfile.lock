@@ -24,7 +24,7 @@ GEM
       oauth2 (~> 1.0)
     glimmer (0.10.1)
       facets (>= 3.1.0, < 4.0.0)
-    glimmer-dsl-swt (0.6.1)
+    glimmer-dsl-swt (0.6.2)
       git-glimmer (= 1.7.0)
       glimmer (~> 0.10.1)
       jeweler (>= 2.3.9, < 3.0.0)
@@ -114,7 +114,7 @@ PLATFORMS
 
 DEPENDENCIES
   git-glimmer (= 1.7.0)
-  glimmer-dsl-swt (~> 0.6.1)
+  glimmer-dsl-swt (~> 0.6.2)
   jeweler (= 2.3.9)
   rspec (~> 3.5.0)
   simplecov
