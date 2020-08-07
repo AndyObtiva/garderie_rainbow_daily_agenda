@@ -173,19 +173,68 @@ class GarderieRainbowDailyAgenda
                 foreground rgb(98, 174, 88)
               }
               
+              composite {
+                grid_layout(2, false) {
+                  margin_width 0
+                  margin_height 0
+                }
+                
+                layout_data(:fill, :top, true, false) 
+                        
+                composite {
+                  grid_layout(2, false) {
+                    margin_width 0
+                    margin_height 0
+                  }
+                  layout_data(:left, :bottom, false, false) {
+                    width_hint 395
+                  }
+                  label {
+                    image @image_baby_milk_bottle.scale_to(48, 48)
+                  }
+                  label {
+                    layout_data(:left, :bottom, false, false)
+                    font height: 16, style: :bold
+                    text "L’heure du lait /milk time"
+                    foreground rgb(98, 174, 88)
+                  }
+                            
+                }
+                
+                label {
+                  layout_data(:left, :bottom, false, false) {
+                    width_hint 393
+                  }
+                  font height: 16, style: :bold
+                  text "Combien de fluide/How much fluid"
+                  foreground rgb(98, 174, 88)
+                }
+                          
+                text {
+                  layout_data(:left, :center, false, false) {
+                    width_hint 395
+                  }
+                }
+                
+                text {
+                  layout_data(:left, :center, false, false) {
+                    width_hint 393
+                  }
+                }
+                      
+              }
+              
               table { |table_proxy|
                 layout_data(:fill, :center, true, false)
-                font height: 18, style: :bold
+                font height: 16
                 item_count 3                
+                header_visible false
                                 
                 table_column {
                   width 400
-                  text "L’heure du lait /milk time"
-                  image @image_baby_milk_bottle.scale_to(24, 24)
                 }
                 table_column {
                   width 400
-                  text "Combien de fluide/How much fluid"
                 }
                             
                 on_mouse_up { |event|
@@ -251,32 +300,130 @@ class GarderieRainbowDailyAgenda
                 foreground rgb(98, 51, 156)
               }
               
+              composite {
+                grid_layout(5, false) {
+                  margin_width 0
+                  margin_height 0
+                }                
+                
+                layout_data(:fill, :top, true, false) 
+                        
+                label {
+                  layout_data(:left, :bottom, false, false) {
+                    width_hint 155
+                  }
+                  font height: 16, style: :bold
+                  text "L’heure change /\nTime changed"
+                  foreground rgb(98, 174, 88)
+                }
+                          
+                label {
+                  layout_data(:left, :bottom, false, false) {
+                    width_hint 153
+                  }
+                  font height: 16, style: :bold
+                  text "Mouillé/Wet"
+                  foreground rgb(98, 174, 88)
+                }
+                          
+                label {
+                  layout_data(:left, :bottom, false, false) {
+                    width_hint 151
+                  }
+                  font height: 16, style: :bold
+                  text "BM"
+                  foreground rgb(98, 174, 88)
+                }
+                         
+                composite {
+                  row_layout {
+                    margin_width 0
+                    margin_height 0                  
+                  }
+                  layout_data(:left, :bottom, false, false) {
+                    width_hint 151
+                  }
+                  label {
+                    image @image_diaper.scale_to(80, 80)
+                  }
+                  label {
+                    font height: 16, style: :bold
+                    text "Couche/Diaper"
+                    foreground rgb(98, 174, 88)
+                  }                            
+                } 
+                
+                composite {
+                  row_layout {
+                    margin_width 0
+                    margin_height 0                  
+                  }
+                  layout_data(:left, :bottom, false, false) {
+                    width_hint 151
+                  }
+                  label {
+                    image @image_doll_on_toilet.scale_to(80, 80)
+                  }
+                  label {
+                    font height: 16, style: :bold
+                    text "Toilette/Toilet"
+                    foreground rgb(98, 174, 88)
+                  }
+                } 
+                                          
+                text {
+                  layout_data(:left, :center, false, false) {
+                    width_hint 155
+                  }
+                }
+                
+                text {
+                  layout_data(:left, :center, false, false) {
+                    width_hint 153
+                  }
+                }
+                
+                text {
+                  layout_data(:left, :center, false, false) {
+                    width_hint 151
+                  }
+                }
+                
+                text {
+                  layout_data(:left, :center, false, false) {
+                    width_hint 151
+                  }
+                }
+                
+                text {
+                  layout_data(:left, :center, false, false) {
+                    width_hint 151
+                  }
+                }
+                      
+              }
+              
+              
               table { |table_proxy|
                 layout_data(:fill, :center, true, false)
-                font height: 18, style: :bold
+                font height: 16
                 item_count 3
+                header_visible false
                 
                 table_column {
                   width 160
-                  text "L’heure change / Time changed"
                 }                            
                 table_column {
                   width 160
-                  text "Mouillé/Wet"
                 }                            
                 table_column {
                   width 160
-                  text "BM"
+                }
+                table_column {
+                  width 160
                 }                            
                 table_column {
                   width 160
-                  text "Couche/Diaper"
-                  image @image_diaper.scale_to(24, 24)
-                }                            
-                table_column {
-                  width 160
-                  text "Toilette/Toilet"
-                  image @image_doll_on_toilet.scale_to(24, 24)
                 }
                  
                 on_mouse_up { |event|
