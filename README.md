@@ -1,4 +1,4 @@
-# Garderie Rainbow Daily Agenda
+# <img alt="Garderie Rainbow Daily Agenda Logo" src="https://github.com/AndyObtiva/garderie_rainbow_daily_agenda/raw/master/images/garderie_rainbow_daily_agenda_logo.png" width="80" /> Garderie Rainbow Daily Agenda
 
 ![Garderie Rainbow Logo](images/garderie_rainbow_daily_agenda_logo.png)
 
