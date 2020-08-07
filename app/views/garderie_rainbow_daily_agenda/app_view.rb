@@ -164,7 +164,6 @@ class GarderieRainbowDailyAgenda
               grid_layout {
                 margin_width 0
               }
-              font height: 18
               
               label {
                 layout_data(:left, :center, false, false)
@@ -174,13 +173,15 @@ class GarderieRainbowDailyAgenda
               }
               
               composite {
-                grid_layout(2, false) {
+                grid_layout(3, false) {
                   margin_width 0
                   margin_height 0
                 }
                 
                 layout_data(:fill, :top, true, false) 
                         
+                # row
+
                 composite {
                   grid_layout(2, false) {
                     margin_width 0
@@ -210,6 +211,10 @@ class GarderieRainbowDailyAgenda
                   foreground rgb(98, 174, 88)
                 }
                           
+                label # filler
+                          
+                # row
+                          
                 text {
                   layout_data(:left, :center, false, false) {
                     width_hint 395
@@ -220,6 +225,10 @@ class GarderieRainbowDailyAgenda
                   layout_data(:left, :center, false, false) {
                     width_hint 393
                   }
+                }
+                
+                button {
+                  text '&Add'
                 }
                       
               }
@@ -301,13 +310,15 @@ class GarderieRainbowDailyAgenda
               }
               
               composite {
-                grid_layout(5, false) {
+                grid_layout(6, false) {
                   margin_width 0
                   margin_height 0
                 }                
                 
                 layout_data(:fill, :top, true, false) 
                         
+                # row
+                
                 label {
                   layout_data(:left, :bottom, false, false) {
                     width_hint 155
@@ -371,6 +382,10 @@ class GarderieRainbowDailyAgenda
                   }
                 } 
                                           
+                label # filler
+                                          
+                # row
+                                          
                 text {
                   layout_data(:left, :center, false, false) {
                     width_hint 155
@@ -400,7 +415,11 @@ class GarderieRainbowDailyAgenda
                     width_hint 151
                   }
                 }
-                      
+              
+                button {
+                  text 'Ad&d'
+                }
+      
               }
               
               
