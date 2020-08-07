@@ -45,11 +45,7 @@ class GarderieRainbowDailyAgenda
     ## Top-most widget must be a shell or another custom shell
     #
     body {
-      shell { |shell_proxy|
-        fill_layout {
-          margin_width 0
-          margin_height 0
-        }
+      shell {
         minimum_size 800, 600
         image File.join(APP_ROOT, 'package', 'windows', "Garderie Rainbow Daily Agenda.ico") if OS.windows?
         text "Garderie Rainbow Daily Agenda"
@@ -66,10 +62,9 @@ class GarderieRainbowDailyAgenda
           }
         }
         
-        @scrolled_composite_proxy = scrolled_composite { |scrolled_composite_proxy|
+        scrolled_composite {
           
-          @composite_proxy = composite { |composite_proxy|
-                        
+          composite {                        
             # top header
             
             label {
@@ -109,7 +104,6 @@ class GarderieRainbowDailyAgenda
               font height: 18
               grid_layout(4, false) {
                 margin_width 0
-                margin_height 0
               }
               
               # row
@@ -171,7 +165,6 @@ class GarderieRainbowDailyAgenda
             composite {
               grid_layout {
                 margin_width 0
-                margin_height 0
               }
               font height: 18
               
@@ -205,10 +198,7 @@ class GarderieRainbowDailyAgenda
             }
             
             composite {
-              row_layout {
-                margin_width 0
-                margin_height 0    
-              }
+              row_layout
               layout_data(:left, :center, false, false)
               
               label {         
@@ -254,9 +244,7 @@ class GarderieRainbowDailyAgenda
             composite {
               grid_layout {
                 margin_width 0
-                margin_height 0
               }
-              font height: 18
               
               label {
                 layout_data(:left, :center, false, false)
@@ -301,6 +289,7 @@ class GarderieRainbowDailyAgenda
             }   
             
             composite {
+              
               label {         
                 font height: 18, style: :bold
                 text "Mon humeur était / My mood was:"
@@ -324,7 +313,44 @@ class GarderieRainbowDailyAgenda
                 }
               }
             }
-                                                                                    
+                        
+            composite {
+              layout_data(:fill, :center, true, false)
+              
+              label {         
+                font height: 18, style: :bold
+                text "S'il vous plaît amenez/Please bring:"
+                foreground rgb(223, 90, 243)
+              }              
+              
+              checkbox {
+                font height: 18, style: :bold
+                text 'Couche/Diapers'
+              }
+              checkbox {
+                font height: 18, style: :bold
+                text 'Vêtements supplémentaires/Extra clothes'
+              }
+              checkbox {
+                font height: 18, style: :bold
+                text 'Lait ou formule spéciale/Special milk or formula'
+              }
+              checkbox {
+                font height: 18, style: :bold
+                text 'Lingettes/Wipes'
+              }
+            
+              label {
+                font height: 18, style: :bold
+                text 'Autre/Other:'
+              }
+              
+              text {
+                layout_data(:fill, :center, true, false)
+              }
+            
+            }
+                                                                                                                                                                                                          
           } 
         
         }              
