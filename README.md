@@ -6,9 +6,9 @@
 
 ## Copyright
 
-Logo is property of [Garderie Rainbow](https://www.garderierainbow.com/) Montreal.
+Logo and code is property of [Garderie Rainbow](https://www.garderierainbow.com/) (Montreal), and may not be copied, reused, distributed, or sold.
 
-Copyright (c) 2020 Andy Maleh. See [LICENSE.txt](LICENSE.txt) for further details about code copyrights.
+Copyright (c) 2020 Garderie Rainbow (Montreal). See [LICENSE.txt](LICENSE.txt) for further details.
 
 --
 

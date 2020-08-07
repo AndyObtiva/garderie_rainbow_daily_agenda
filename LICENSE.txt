@@ -1,1 +1,2 @@
-Copyright (c) 2020 GarderieRainbowDailyAgenda
+Copyright (c) 2020 Garderie Rainbow (Montreal)
+Logo and code is property of [Garderie Rainbow](https://www.garderierainbow.com/) (Montreal), and may not be copied, reused, distributed, or sold.
