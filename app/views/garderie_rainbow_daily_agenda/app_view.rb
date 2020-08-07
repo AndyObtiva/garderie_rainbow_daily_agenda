@@ -22,7 +22,7 @@ class GarderieRainbowDailyAgenda
           display_about_dialog
         }
         on_preferences {
-          display_preferences_dialog
+          display_about_dialog
         }
       }
       @image_baby_milk_bottle = image(File.join(APP_ROOT, 'images', 'baby_milk_bottle.png'))
@@ -56,7 +56,7 @@ class GarderieRainbowDailyAgenda
             menu_item {
               text 'Preferences...'
               on_widget_selected {
-                display_preferences_dialog
+                display_about_dialog
               }
             }
           }
