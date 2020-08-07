@@ -85,8 +85,6 @@ class GarderieRainbowDailyAgenda
               text 'Agenda Quotidien / Daily Agenda'
             }
             
-            # name
-            
             label {
               layout_data(:left, :center, false, false)
               font height: 18
@@ -350,6 +348,52 @@ class GarderieRainbowDailyAgenda
               }
             
             }
+                                                                                                                                                                                                          
+            label {
+              layout_data(:left, :center, false, false)
+              font height: 18
+              text "Je me suis amusé quand/I had fun when we:"
+            }
+            text {
+              layout_data(:fill, :center, true, false)
+              font height: 18
+              on_focus_gained { |event|
+                event.widget.select_all
+              }
+            }
+            
+            label {
+              layout_data(:left, :center, false, false)
+              font height: 18
+              text "Notes spéciales / Special notes:"
+            }
+            text {
+              layout_data(:fill, :center, true, false)
+              font height: 18
+              on_focus_gained { |event|
+                event.widget.select_all
+              }
+            }
+            
+            label {
+              layout_data(:left, :center, false, false)
+              font height: 18
+              text "Nom de l’éducatrice / Educator name:"
+            }
+            text {
+              layout_data(:fill, :center, true, false)
+              font height: 18
+              on_focus_gained { |event|
+                event.widget.select_all
+              }
+            }
+            
+            label {
+              layout_data(:left, :center, false, false)
+              font height: 18, style: :bold
+              text "HAVE A NICE DAY 🤗"
+              foreground rgb(239, 190, 45)
+            }                                                                                                                                                                             
                                                                                                                                                                                                           
           } 
         
