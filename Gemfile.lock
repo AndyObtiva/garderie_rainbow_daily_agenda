@@ -24,6 +24,8 @@ GEM
       oauth2 (~> 1.0)
     glimmer (0.10.1)
       facets (>= 3.1.0, < 4.0.0)
+    glimmer-cw-cdatetime-nebula (1.4.0.0)
+      glimmer-dsl-swt (>= 0.3.1, < 2.0.0)
     glimmer-dsl-swt (0.6.2)
       git-glimmer (= 1.7.0)
       glimmer (~> 0.10.1)
@@ -114,6 +116,7 @@ PLATFORMS
 
 DEPENDENCIES
   git-glimmer (= 1.7.0)
+  glimmer-cw-cdatetime-nebula (~> 1.4.0.0)
   glimmer-dsl-swt (~> 0.6.2)
   jeweler (= 2.3.9)
   rspec (~> 3.5.0)
