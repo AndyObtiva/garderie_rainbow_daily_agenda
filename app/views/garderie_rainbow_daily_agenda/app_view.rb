@@ -27,6 +27,12 @@ class GarderieRainbowDailyAgenda
       }
       @image_baby_milk_bottle = image(File.join(APP_ROOT, 'images', 'baby_milk_bottle.png'))
       @image_sleeping_baby = image(File.join(APP_ROOT, 'images', 'sleeping_baby.gif'))
+      @image_diaper = image(File.join(APP_ROOT, 'images', 'diaper.gif'))
+      @image_doll_on_toilet = image(File.join(APP_ROOT, 'images', 'doll_on_toilet.gif'))
+      @image_smilie_big_smile = image(File.join(APP_ROOT, 'images', 'smilie_big_smile.gif'))
+      @image_smilie_smile = image(File.join(APP_ROOT, 'images', 'smilie_smile.gif'))
+      @image_smilie_unsure = image(File.join(APP_ROOT, 'images', 'smilie_unsure.gif'))
+      @image_smilie_sad = image(File.join(APP_ROOT, 'images', 'smilie_sad.gif'))
     }
 
     ## Use after_body block to setup observers for widgets in body
@@ -44,7 +50,7 @@ class GarderieRainbowDailyAgenda
           margin_width 0
           margin_height 0
         }
-        minimum_size 640, 480
+        minimum_size 800, 600
         image File.join(APP_ROOT, 'package', 'windows', "Garderie Rainbow Daily Agenda.ico") if OS.windows?
         text "Garderie Rainbow Daily Agenda"
         
@@ -163,11 +169,11 @@ class GarderieRainbowDailyAgenda
             }
         
             composite {
-              font height: 18
               grid_layout {
                 margin_width 0
                 margin_height 0
               }
+              font height: 18
               
               label {
                 layout_data(:left, :center, false, false)
@@ -179,8 +185,8 @@ class GarderieRainbowDailyAgenda
               table { |table_proxy|
                 layout_data(:fill, :center, true, false)
                 font height: 18, style: :bold
-                item_count 3
-                
+                item_count 3                
+                                
                 table_column {
                   width 400
                   text "L’heure du lait /milk time"
@@ -216,6 +222,7 @@ class GarderieRainbowDailyAgenda
                   width 48
                   height 48         
                 }         
+                background :transparent
                 background_image @image_sleeping_baby.scale_to(48, 48)
               }
             }
@@ -243,17 +250,84 @@ class GarderieRainbowDailyAgenda
               }
               
             }
-                                  
+                     
+            composite {
+              grid_layout {
+                margin_width 0
+                margin_height 0
+              }
+              font height: 18
+              
+              label {
+                layout_data(:left, :center, false, false)
+                font height: 18, style: :bold
+                text "Temps à la toilette / Potty times:"
+                foreground rgb(98, 51, 156)
+              }
+              
+              table { |table_proxy|
+                layout_data(:fill, :center, true, false)
+                font height: 18, style: :bold
+                item_count 3
+                
+                table_column {
+                  width 160
+                  text "L’heure change / Time changed"
+                }                            
+                table_column {
+                  width 160
+                  text "Mouillé/Wet"
+                }                            
+                table_column {
+                  width 160
+                  text "BM"
+                }                            
+                table_column {
+                  width 160
+                  text "Couche/Diaper"
+                  image @image_diaper.scale_to(24, 24)
+                }                            
+                table_column {
+                  width 160
+                  text "Toilette/Toilet"
+                  image @image_doll_on_toilet.scale_to(24, 24)
+                }
+                 
+                on_mouse_up { |event|
+                  table_proxy.edit_table_item(event.table_item, event.column_index)
+                }          
+              }
+            
+            }   
+            
+            composite {
+              label {         
+                font height: 18, style: :bold
+                text "Mon humeur était / My mood was:"
+                foreground rgb(99, 175, 237)
+              }
+              
+              
+              group {
+                row_layout
+                radio {
+                  image @image_smilie_big_smile.scale_to(64, 64)
+                }
+                radio {
+                  image @image_smilie_smile.scale_to(64, 64)
+                }
+                radio {
+                  image @image_smilie_unsure.scale_to(64, 64)
+                }
+                radio {
+                  image @image_smilie_sad.scale_to(64, 64)
+                }
+              }
+            }
+                                                                                    
           } 
-          expand_horizontal false
-          expand_vertical true
-          scrolled_composite_proxy.swt_widget.set_min_size(shell_proxy.swt_widget.computeSize(swt(:default), swt(:default)))
-          
-        }    
-          
-#        on_swt_Resize {
-#          @scrolled_composite_proxy.swt_widget.set_min_size(body_root.swt_widget.computeSize(swt(:default), swt(:default)))
-#        }
+        
+        }              
             
       }
             
