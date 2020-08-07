@@ -26,13 +26,13 @@ class GarderieRainbowDailyAgenda
         }
       }
       @image_baby_milk_bottle = image(File.join(APP_ROOT, 'images', 'baby_milk_bottle.png'))
-      @image_sleeping_baby = image(File.join(APP_ROOT, 'images', 'sleeping_baby.gif'))
-      @image_diaper = image(File.join(APP_ROOT, 'images', 'diaper.gif'))
+      @image_sleeping_baby = image(File.join(APP_ROOT, 'images', 'sleeping_baby.png'))
+      @image_diaper = image(File.join(APP_ROOT, 'images', 'diaper.png'))
       @image_doll_on_toilet = image(File.join(APP_ROOT, 'images', 'doll_on_toilet.gif'))
       @image_smilie_big_smile = image(File.join(APP_ROOT, 'images', 'smilie_big_smile.gif'))
       @image_smilie_smile = image(File.join(APP_ROOT, 'images', 'smilie_smile.gif'))
       @image_smilie_unsure = image(File.join(APP_ROOT, 'images', 'smilie_unsure.gif'))
-      @image_smilie_sad = image(File.join(APP_ROOT, 'images', 'smilie_sad.gif'))
+      @image_smilie_sad = image(File.join(APP_ROOT, 'images', 'smilie_sad.png'))
     }
 
     ## Use after_body block to setup observers for widgets in body
@@ -254,22 +254,22 @@ class GarderieRainbowDailyAgenda
             }
             
             composite {
-              row_layout
+              grid_layout(2, false) {
+                margin_width 0
+                margin_height 0
+              }
               layout_data(:left, :center, false, false)
               
               label {         
+                layout_data(:left, :center, false, false)
                 font height: 18, style: :bold
                 text "Sieste/Naptime:"
                 foreground rgb(85, 114, 192)
               }
               
-              composite {
-                layout_data {
-                  width 48
-                  height 48         
-                }         
-                background :transparent
-                background_image @image_sleeping_baby.scale_to(48, 48)
+              label {
+                layout_data(:left, :center, false, false)
+                image @image_sleeping_baby.scale_to(75, 75)
               }
             }
             
