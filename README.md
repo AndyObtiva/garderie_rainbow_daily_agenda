@@ -6,7 +6,7 @@
 
 ## Copyright
 
-Logo and code is property of [Garderie Rainbow](https://www.garderierainbow.com/) (Montreal), and may not be copied, reused, distributed, or sold.
+Logo, business model, and source code are property of [Garderie Rainbow](https://www.garderierainbow.com/) (Montreal), and may not be copied, reused, distributed, or sold. The source code is open as a learning tool for building other applications though.
 
 Copyright (c) 2020 Garderie Rainbow (Montreal). See [LICENSE.txt](LICENSE.txt) for further details.
 
