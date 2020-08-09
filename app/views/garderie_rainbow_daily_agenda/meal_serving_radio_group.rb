@@ -1,6 +1,8 @@
 class GarderieRainbowDailyAgenda
   class MealServingRadioGroup
     include Glimmer::UI::CustomWidget
+    
+    option :meal
 
     ## Add options like the following to configure CustomWidget by outside consumers
     #
@@ -36,17 +38,20 @@ class GarderieRainbowDailyAgenda
           
         radio {
           text 'Un peu/A bit'
-          font height: 16            
+          font height: 16   
+          selection bind(meal, :a_bit)   
         }
     
         radio {
           text '1 Portion/serving'
           font height: 16          
+          selection bind(meal, :one_serving)
         }
         
         radio {
           text '2 Portions/servings'
           font height: 16          
+          selection bind(meal, :two_servings)
         }           
       }  
     }
