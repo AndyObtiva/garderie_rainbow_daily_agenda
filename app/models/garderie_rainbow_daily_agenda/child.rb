@@ -20,6 +20,16 @@ class GarderieRainbowDailyAgenda
                   :email
     attr_writer :new_drink, :new_potty_time
     
+    def nap_time_start_string
+      return if nap_time_start.nil?
+      Time.at(nap_time_start.time / 1000.0).strftime('%I:%M %p')      
+    end    
+
+    def nap_time_end_string
+      return if nap_time_end.nil?
+      Time.at(nap_time_end.time / 1000.0).strftime('%I:%M %p')      
+    end        
+    
     def meals
       @meals ||= MEAL_TYPES.reduce({}) {|hash, meal_type| hash.merge(meal_type => Meal.new(type: meal_type))}
     end

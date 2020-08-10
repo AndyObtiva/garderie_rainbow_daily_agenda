@@ -1,3 +1,2 @@
-- Fix timezone handling in all time fields
 - Update unsure face not to be smiling anymore
 - Switch ENV['username'] with email address from preferences

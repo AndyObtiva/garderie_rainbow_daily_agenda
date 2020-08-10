@@ -2,8 +2,10 @@ $LOAD_PATH.unshift(File.expand_path('..', __FILE__))
 
 require 'bundler/setup'
 Bundler.require(:default)
+Glimmer::Config.logging_devices = [:stdout, :file, :syslog]
 require 'puts_debuggerer'
 require 'active_support/core_ext/string/output_safety'
+require 'date'
 require 'views/garderie_rainbow_daily_agenda/app_view'
 
 # TODO on focus of any widget, scroll to it

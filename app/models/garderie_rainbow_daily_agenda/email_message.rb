@@ -140,7 +140,7 @@ class GarderieRainbowDailyAgenda
                                   <<~PARTIAL_HTML
                                 <tr>
                                    <td colspan="1" rowspan="1" width="312" style="width: 233.75pt; border-right-width: 1pt; border-style: none solid solid; border-right-color: windowtext; border-bottom-width: 1pt; border-bottom-color: windowtext; border-left-width: 1pt; border-left-color: windowtext; padding: 0cm 5.4pt;">
-                                      <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;">#{drink.milk_time}</div>
+                                      <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;">#{drink.milk_time_string}</div>
                                    </td>
                                    <td colspan="1" rowspan="1" width="312" style="border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
                                       <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;">#{drink.fluid_amount}<b><span lang="EN-US" style="font-size: 14pt; color: red;"></span></b></div>
@@ -159,8 +159,8 @@ class GarderieRainbowDailyAgenda
                              <div>
                                 <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="FR" style="font-size: 14pt; color: rgb(68, 114, 196);">Sieste/Naptime:&nbsp;<u><img id="yiv9257958770ymail_ctr_id_-673840-5" alt="Animated GIF" width="50" height="50" src="https://1.bp.blogspot.com/-Ajt28gJ5T0A/WLrnwTIlhfI/AAAAAAAAU-c/LfulclQ_b4Eamokz2JA__ukY6kKC2Og5wCLcB/s1600/sleeping-animated-emoji.gif" style="max-height: 360px; width: 50px; min-height: 50px;"></u></span></b></p>
                                 <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="FR" style="font-size: 14pt; color: rgb(68, 114, 196);"><u><br clear="none"></u></span></b></p>
-                                <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="FR" style="font-size: 14pt;">Je me suis endormi à /&nbsp;</span></b><b style="font-size: 11pt;"><span lang="FR" style="font-size: 14pt;">I fell asleep at:&nbsp;#{@child.nap_time_start}</span></b></p>
-                                <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="FR" style="font-size: 14pt;">Jusqu’à&nbsp;/ Until:&nbsp;#{@child.nap_time_end}</span></b></p>
+                                <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="FR" style="font-size: 14pt;">Je me suis endormi à /&nbsp;</span></b><b style="font-size: 11pt;"><span lang="FR" style="font-size: 14pt;">I fell asleep at:&nbsp;#{@child.nap_time_start_string}</span></b></p>
+                                <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="FR" style="font-size: 14pt;">Jusqu’à&nbsp;/ Until:&nbsp;#{@child.nap_time_end_string}</span></b></p>
                                 <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="FR" style="font-size: 14pt;"><br clear="none"></span></b></p>
                                 <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="FR" style="font-size: 14pt; color: rgb(112, 48, 160);">Temps à la toilette / Potty times:</span></b></p>
                                 <table width="" style="border-collapse: collapse; border: none;">
@@ -209,7 +209,7 @@ class GarderieRainbowDailyAgenda
                                           <<~PARTIAL_HTML
                                       <tr>
                                          <td colspan="1" rowspan="1" width="131" style="width: 98.2pt; border-right-width: 1pt; border-style: none solid solid; border-right-color: windowtext; border-bottom-width: 1pt; border-bottom-color: windowtext; border-left-width: 1pt; border-left-color: windowtext; padding: 0cm 5.4pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{potty_time.change_time}&nbsp;</span></p>
+                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{potty_time.change_time_string}&nbsp;</span></p>
                                          </td>
                                          <td colspan="1" rowspan="1" width="120" style="width: 90.3pt; border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
                                             <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if potty_time.wet}&nbsp;</span></p>

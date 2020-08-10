@@ -231,11 +231,12 @@ class GarderieRainbowDailyAgenda
                           
                 # row
                           
-                @new_drink_inputs[:milk_time] = c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::CLOCK_24_HOUR | CDT::TIME_MEDIUM) {
+                @new_drink_inputs[:milk_time] = c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::TIME_MEDIUM) {
                   layout_data(:left, :center, false, false) {
                     width_hint 395
                   }
-                  selection bind(self, 'child.new_drink.milk_time')
+                  pattern 'hh:mm a'
+                  selection bind(self, 'child.new_drink.milk_time')                  
                   on_key_pressed { |event|
                     @new_drink_inputs[:fluid_amount].swt_widget.set_focus if event.keyCode == swt(:cr)
                   }                               
@@ -271,13 +272,13 @@ class GarderieRainbowDailyAgenda
                                 
                 table_column {
                   width 400
-                  editor :c_date_time, CDT::BORDER | CDT::DROP_DOWN | CDT::CLOCK_24_HOUR | CDT::TIME_MEDIUM         
+                  editor :c_date_time, CDT::BORDER | CDT::DROP_DOWN | CDT::TIME_MEDIUM, property: :milk_time
                 }
                 table_column {
                   width 400
                 }
                             
-                items bind(self, 'child.drinks'), column_properties(:milk_time, :fluid_amount)
+                items bind(self, 'child.drinks'), column_properties(:milk_time_string, :fluid_amount)
                             
                 on_mouse_up { |event|
                   table_proxy.edit_table_item(event.table_item, event.column_index)
@@ -329,8 +330,9 @@ class GarderieRainbowDailyAgenda
                   text "Je me suis endormi à / I fell asleep at:"
                 }               
                         
-                c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::CLOCK_24_HOUR | CDT::TIME_MEDIUM) {
+                c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::TIME_MEDIUM) {
                   selection bind(self, 'child.nap_time_start')
+                  pattern 'hh:mm a'
                 }
               }
             
@@ -344,8 +346,9 @@ class GarderieRainbowDailyAgenda
                   text "Jusqu’à / Until:"
                 }
                 
-                c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::CLOCK_24_HOUR | CDT::TIME_MEDIUM) {
+                c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::TIME_MEDIUM) {
                   selection bind(self, 'child.nap_time_end')
+                  pattern 'hh:mm a'
                 }
               }
               
@@ -440,10 +443,11 @@ class GarderieRainbowDailyAgenda
                                           
                 # row
                                           
-                @new_potty_time_inputs[:change_time] = c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::CLOCK_24_HOUR | CDT::TIME_MEDIUM) {
+                @new_potty_time_inputs[:change_time] = c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::TIME_MEDIUM) {
                   layout_data(:left, :center, false, false) {
                     width_hint 155
                   }
+                  pattern 'hh:mm a'
                   selection bind(self, 'child.new_potty_time.change_time')
                   on_key_pressed { |event|
                     @new_potty_time_inputs[:wet].swt_widget.set_focus if event.keyCode == swt(:cr)
@@ -511,7 +515,7 @@ class GarderieRainbowDailyAgenda
                 
                 table_column {
                   width 160
-                  editor :c_date_time, CDT::BORDER | CDT::DROP_DOWN | CDT::CLOCK_24_HOUR | CDT::TIME_MEDIUM
+                  editor :c_date_time, CDT::BORDER | CDT::DROP_DOWN | CDT::TIME_MEDIUM, property: :change_time
                 }                                              
                 table_column {
                   width 160
@@ -530,7 +534,7 @@ class GarderieRainbowDailyAgenda
                   editor :checkbox
                 }
                  
-                items bind(self, 'child.potty_times'), column_properties(:change_time, :wet, :bm, :diaper, :toilet)
+                items bind(self, 'child.potty_times'), column_properties(:change_time_string, :wet, :bm, :diaper, :toilet)
                  
                 on_mouse_up { |event|
                   table_proxy.edit_table_item(event.table_item, event.column_index)
@@ -720,6 +724,8 @@ class GarderieRainbowDailyAgenda
           tool_tip_text new_drink.errors.keys.include?(attribute) ? new_drink.errors[attribute].first : nil
         }
       end
+    rescue => e
+      pd e
     end    
        
     def add_potty_time
