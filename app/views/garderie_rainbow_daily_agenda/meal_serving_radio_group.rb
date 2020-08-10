@@ -12,9 +12,9 @@ class GarderieRainbowDailyAgenda
     ## Use before_body block to pre-initialize variables to use in body
     #
     #
-    # before_body {
-    # 
-    # }
+    before_body {
+      @radios = {}
+    }
 
     ## Use after_body block to setup observers for widgets in body
     #
@@ -36,25 +36,29 @@ class GarderieRainbowDailyAgenda
           horizontal_span 3
         }
           
-        radio {
+        @radios[:a_bit] = radio {
           text 'Un peu/A bit'
           font height: 16   
           selection bind(meal, :a_bit)   
         }
     
-        radio {
+        @radios[:one_serving] = radio {
           text '1 Portion/serving'
           font height: 16          
           selection bind(meal, :one_serving)
         }
         
-        radio {
+        @radios[:two_servings] = radio {
           text '2 Portions/servings'
           font height: 16          
           selection bind(meal, :two_servings)
         }           
       }  
     }
+    
+    def reset
+      @radios.values.each {|radio_proxy| radio_proxy.swt_widget.selection = nil}
+    end
 
   end
 end

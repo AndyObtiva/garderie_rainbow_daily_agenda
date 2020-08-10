@@ -1,7 +1,8 @@
 require 'models/garderie_rainbow_daily_agenda/child'
 require 'models/garderie_rainbow_daily_agenda/drink'
 require 'models/garderie_rainbow_daily_agenda/email_message'
-require 'views/garderie_rainbow_daily_agenda/meal_serving_radio_group.rb'
+require 'views/garderie_rainbow_daily_agenda/meal_serving_radio_group'
+require 'views/garderie_rainbow_daily_agenda/preferences'
 
 class GarderieRainbowDailyAgenda
   class AppView
@@ -27,7 +28,10 @@ class GarderieRainbowDailyAgenda
           display_about_dialog
         }
         on_preferences {
-          display_about_dialog
+          preferences.open
+        }
+        on_swt_keyup { |event|
+          event.widget.shell.close if event.keyCode == swt(:esc) && event.widget.shell.get_data('proxy').has_style?(:dialog_trim)
         }
       }
       @image_baby_milk_bottle = image(File.join(APP_ROOT, 'images', 'baby_milk_bottle.png'))
@@ -40,6 +44,7 @@ class GarderieRainbowDailyAgenda
       @image_smilie_unsure = image(File.join(APP_ROOT, 'images', 'smilie_unsure.png'))
       @image_smilie_sad = image(File.join(APP_ROOT, 'images', 'smilie_sad.png'))
       @child = Child.new
+      @meal_serving_radio_groups = {}
       @new_drink_labels = {}
       @new_drink_inputs = {}
       @new_potty_time_labels = {}
@@ -152,7 +157,7 @@ class GarderieRainbowDailyAgenda
               
               #TODO extract the following into a custom widget
             
-              meal_serving_radio_group(meal: @child.meals[:breakfast])
+              @meal_serving_radio_groups[:breakfast] = meal_serving_radio_group(meal: @child.meals[:breakfast])
               
               # row
               
@@ -161,7 +166,7 @@ class GarderieRainbowDailyAgenda
                 font height: 16
               }
                                  
-              meal_serving_radio_group(meal: @child.meals[:lunch])
+              @meal_serving_radio_groups[:lunch] = meal_serving_radio_group(meal: @child.meals[:lunch])
                         
               # row
               
@@ -170,7 +175,7 @@ class GarderieRainbowDailyAgenda
                 font height: 16
               }          
               
-              meal_serving_radio_group(meal: @child.meals[:pm_snack])
+              @meal_serving_radio_groups[:pm_snack] = meal_serving_radio_group(meal: @child.meals[:pm_snack])
             }
         
             composite {
@@ -690,14 +695,26 @@ class GarderieRainbowDailyAgenda
                 send_email if event.keyCode == swt(:cr)
               }                               
             }
-            button {
+            composite {
+              row_layout
               layout_data(:left, :center, false, false)
-              text 'Send'
-              on_key_pressed { |event|
-                send_email if event.keyCode == swt(:cr)
-              }                               
-              on_widget_selected {
-                send_email
+              button {
+                text 'Send'
+                on_key_pressed { |event|
+                  send_email if event.keyCode == swt(:cr)
+                }                               
+                on_widget_selected {
+                  send_email
+                }
+              }
+              button {
+                text 'Clear Form'
+                on_key_pressed { |event|
+                  reset if event.keyCode == swt(:cr)
+                }                               
+                on_widget_selected {
+                  reset
+                }
               }
             }
                                                                                                                                                                                                                                                                                                                                                                 
@@ -805,6 +822,7 @@ class GarderieRainbowDailyAgenda
     end
     
     def reset
+      @meal_serving_radio_groups.values.each(&:reset)
       self.child = Child.new
       @initial_focus_widget.setFocus
     end
@@ -814,39 +832,7 @@ class GarderieRainbowDailyAgenda
         text 'About'
         message "Garderie Rainbow Daily Agenda - App View #{VERSION}\n\n#{LICENSE}"
       }.open
-    end
-    
-    def display_preferences_dialog
-      dialog(swt_widget) {
-        text 'Preferences'
-        grid_layout {
-          margin_height 5
-          margin_width 5
-        }
-        group {
-          row_layout {
-            type :vertical
-            spacing 10
-          }
-          text 'Greeting'
-          font style: :bold
-          [
-            'Hello, World!', 
-            'Howdy, Partner!'
-          ].each do |greeting_text|
-            button(:radio) {
-              text greeting_text
-              selection bind(self, :greeting) { |g| g == greeting_text }
-              layout_data {
-                width 160
-              }
-              on_widget_selected { |event|
-                self.greeting = event.widget.getText
-              }
-            }
-          end
-        }
-      }.open
-    end
+    end    
+
   end
 end
