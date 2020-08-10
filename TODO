@@ -1,1 +1,2 @@
 - Switch ENV['username'] with email address from preferences
+- Make changing start time affect end time if it surpasses it and vice versa

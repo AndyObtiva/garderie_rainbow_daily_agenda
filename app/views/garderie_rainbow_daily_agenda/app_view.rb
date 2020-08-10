@@ -1,6 +1,7 @@
 require 'models/garderie_rainbow_daily_agenda/child'
 require 'models/garderie_rainbow_daily_agenda/drink'
 require 'models/garderie_rainbow_daily_agenda/email_message'
+require 'services/garderie_rainbow_daily_agenda/email_service'
 require 'views/garderie_rainbow_daily_agenda/meal_serving_radio_group'
 require 'views/garderie_rainbow_daily_agenda/preferences'
 
@@ -49,6 +50,8 @@ class GarderieRainbowDailyAgenda
       @new_drink_inputs = {}
       @new_potty_time_labels = {}
       @new_potty_time_inputs = {}
+      
+      @email_service = EmailService.instance
     }
 
     ## Use after_body block to setup observers for widgets in body
@@ -741,8 +744,6 @@ class GarderieRainbowDailyAgenda
           tool_tip_text new_drink.errors.keys.include?(attribute) ? new_drink.errors[attribute].first : nil
         }
       end
-    rescue => e
-      pd e
     end    
        
     def add_potty_time
@@ -775,6 +776,8 @@ class GarderieRainbowDailyAgenda
         foreground :black
         tool_tip_text nil
       }
+      
+      preferences.open unless @email_service.valid?
     
       @progress_dialog = dialog {
         grid_layout(1, false)
@@ -789,19 +792,32 @@ class GarderieRainbowDailyAgenda
         }
       }
 
-      send_email_done = false      
+      send_email_done = false
+      email_sender = nil
       Thread.new do
-        email_message = EmailMessage.new(@child)
-        GarderieRainbowDailyAgenda.email_sender.send_email(email_message.to_mail)
-        send_email_done = true
-        async_exec {
-          @progress_dialog.close
-        }
+        begin
+          email_message = EmailMessage.new(@child)
+          email_sender = @email_service.email_sender
+          email_sender.send_email(email_message.to_mail)
+          send_email_done = true
+          async_exec {
+            @progress_dialog.close
+          }
+        rescue Exception => e
+          Glimmer::Config.logger.error e.full_message
+          async_exec {
+            @progress_dialog.close
+            message_box(body_root, :icon_error) {
+              text body_root.shell.text
+              message "Email Error!\n#{e.full_message}"
+            }.open
+          }
+        end
       end
         
       @progress_dialog.open unless send_email_done
       
-      if GarderieRainbowDailyAgenda.email_sender.sending&.finished_at
+      if email_sender&.sending&.finished_at
         message_box(body_root, :icon_information) {
           text body_root.shell.text
           message 'Email Sent!'
@@ -810,10 +826,10 @@ class GarderieRainbowDailyAgenda
       else
         message_box(body_root, :icon_error) {
           text body_root.shell.text
-          message "Email Failed!\n#{GarderieRainbowDailyAgenda.email_sender.sending&.response}"
+          message "Email Failed!\n#{email_sender&.sending&.response}"
         }.open
       end
-    rescue => e
+    rescue Exception => e
       Glimmer::Config.logger.error e.full_message
       message_box(body_root, :icon_error) {
         text body_root.shell.text

@@ -1,3 +1,5 @@
+require 'services/garderie_rainbow_daily_agenda/email_service'
+
 class GarderieRainbowDailyAgenda
   class EmailMessage
     REGEX_CONTENT_ID = /^<(.*)>$/
@@ -7,10 +9,13 @@ class GarderieRainbowDailyAgenda
     end
     
     def to_mail
+      from_email = EmailService.instance.from_email
+      from_name = EmailService.instance.from_name
+      from = "\"#{from_name}\" <#{from_email}>"
       to = @child.email
       subject = "#{@child.name} Daily Report"
       Mail.new do
-        from ENV['username']
+        from from
         to to
         subject subject
       end.tap do |mail|

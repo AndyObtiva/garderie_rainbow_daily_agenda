@@ -1,3 +1,5 @@
+require 'services/garderie_rainbow_daily_agenda/email_service'
+
 class GarderieRainbowDailyAgenda
   class Preferences
     include Glimmer::UI::CustomShell
@@ -12,9 +14,9 @@ class GarderieRainbowDailyAgenda
     ## Use before_body block to pre-initialize variables to use in body
     #
     #
-    # before_body {
-    #
-    # }
+    before_body {
+      @email_service = EmailService.instance
+    }
 
     ## Use after_body block to setup observers for widgets in body
     #
@@ -48,6 +50,7 @@ class GarderieRainbowDailyAgenda
               width_hint 160
             }
             font height: 16
+            text bind(@email_service, :address)
           }
           label # filler
                     
@@ -58,11 +61,13 @@ class GarderieRainbowDailyAgenda
           text {
             layout_data(:fill, :top, true, false)
             font height: 16
+            text bind(@email_service, :port)
           }                    
           checkbox {
             layout_data(:left, :top, false, false)
             text 'SSL?'
             font height: 16
+            selection bind(@email_service, :use_ssl)
           }
                     
           label {
@@ -72,6 +77,7 @@ class GarderieRainbowDailyAgenda
           text {
             layout_data(:fill, :top, true, false)
             font height: 16
+            text bind(@email_service, :username)
           }
           label # filler
                     
@@ -82,6 +88,7 @@ class GarderieRainbowDailyAgenda
           text(:password, :border) {
             layout_data(:fill, :top, true, false)
             font height: 16
+            text bind(@email_service, :password)
           }
           label # filler
           
@@ -92,6 +99,7 @@ class GarderieRainbowDailyAgenda
           text {
             layout_data(:fill, :top, true, false)
             font height: 16
+            text bind(@email_service, :from_email)
           }
           label # filler
           
@@ -102,9 +110,22 @@ class GarderieRainbowDailyAgenda
           text {
             layout_data(:fill, :top, true, false)
             font height: 16
+            text bind(@email_service, :from_name)
+            on_key_pressed { |event|
+              body_root.close if event.keyCode == swt(:cr)
+            }                               
           }
           label # filler
           
+          button {
+            text '&Save'
+            on_key_pressed { |event|
+              body_root.close if event.keyCode == swt(:cr)
+            }                               
+            on_widget_selected {
+              body_root.close
+            }
+          }
         }                
         
       }
