@@ -184,6 +184,9 @@ class GarderieRainbowDailyAgenda
                                             <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><b style="font-size: 11pt; font-style: inherit;"><span lang="EN-US" style="font-size: 14pt;"><img id="yiv9257958770ymail_ctr_id_-274563-7" alt="Animated GIF" width="91.21589660644531" height="91.21589660644531" src="https://i0.wp.com/daddilife.com/wp-content/uploads/2017/02/Potty-Training.gif?resize=150%2C150&amp;ssl=1" style="max-height: 360px; width: 91.2159px; min-height: 91.2159px;"></span></b><br clear="none"></div>
                                          </td>
                                       </tr>
+                                      #{
+                                        @child.potty_times.empty? ?
+                                          <<~PARTIAL_HTML
                                       <tr>
                                          <td colspan="1" rowspan="1" width="131" style="width: 98.2pt; border-right-width: 1pt; border-style: none solid solid; border-right-color: windowtext; border-bottom-width: 1pt; border-bottom-color: windowtext; border-left-width: 1pt; border-left-color: windowtext; padding: 0cm 5.4pt;">
                                             <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
@@ -201,57 +204,29 @@ class GarderieRainbowDailyAgenda
                                             <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
                                          </td>
                                       </tr>
-                                      <tr style="min-height: 14.9pt;">
-                                         <td colspan="1" rowspan="1" width="131" style="width: 98.2pt; border-right-width: 1pt; border-style: none solid solid; border-right-color: windowtext; border-bottom-width: 1pt; border-bottom-color: windowtext; border-left-width: 1pt; border-left-color: windowtext; padding: 0cm 5.4pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
-                                         </td>
-                                         <td colspan="1" rowspan="1" width="120" style="width: 90.3pt; border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
-                                         </td>
-                                         <td colspan="1" rowspan="1" width="118" style="width: 88.85pt; border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
-                                         </td>
-                                         <td colspan="1" rowspan="1" width="110" style="width: 82.4pt; border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
-                                         </td>
-                                         <td colspan="1" rowspan="1" width="144" style="border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
-                                         </td>
-                                      </tr>
+                                          PARTIAL_HTML
+                                        : @child.potty_times.map do |potty_time|
+                                          <<~PARTIAL_HTML
                                       <tr>
                                          <td colspan="1" rowspan="1" width="131" style="width: 98.2pt; border-right-width: 1pt; border-style: none solid solid; border-right-color: windowtext; border-bottom-width: 1pt; border-bottom-color: windowtext; border-left-width: 1pt; border-left-color: windowtext; padding: 0cm 5.4pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
+                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{potty_time.change_time}&nbsp;</span></p>
                                          </td>
                                          <td colspan="1" rowspan="1" width="120" style="width: 90.3pt; border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
+                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if potty_time.wet}&nbsp;</span></p>
                                          </td>
                                          <td colspan="1" rowspan="1" width="118" style="width: 88.85pt; border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
+                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if potty_time.bm}&nbsp;</span></p>
                                          </td>
                                          <td colspan="1" rowspan="1" width="110" style="width: 82.4pt; border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
+                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if potty_time.diaper}&nbsp;</span></p>
                                          </td>
                                          <td colspan="1" rowspan="1" width="144" style="border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
+                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if potty_time.toilet}&nbsp;</span></p>
                                          </td>
-                                      </tr>
-                                      <tr style="min-height: 14.9pt;">
-                                         <td colspan="1" rowspan="1" width="131" style="width: 98.2pt; border-right-width: 1pt; border-style: none solid solid; border-right-color: windowtext; border-bottom-width: 1pt; border-bottom-color: windowtext; border-left-width: 1pt; border-left-color: windowtext; padding: 0cm 5.4pt; min-height: 14.9pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
-                                         </td>
-                                         <td colspan="1" rowspan="1" width="120" style="width: 90.3pt; border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt; min-height: 14.9pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
-                                         </td>
-                                         <td colspan="1" rowspan="1" width="118" style="width: 88.85pt; border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt; min-height: 14.9pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
-                                         </td>
-                                         <td colspan="1" rowspan="1" width="110" style="width: 82.4pt; border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt; min-height: 14.9pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
-                                         </td>
-                                         <td colspan="1" rowspan="1" width="144" style="border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt; min-height: 14.9pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
-                                         </td>
-                                      </tr>
+                                      </tr>                                          
+                                          PARTIAL_HTML
+                                        end.join("\n")                        
+                                      }
                                    </tbody>
                                 </table>
                                 <div style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span><br class="webkit-block-placeholder"></div>
@@ -268,17 +243,16 @@ class GarderieRainbowDailyAgenda
                                       </tr>
                                       <tr>
                                          <td colspan="1" rowspan="1" width="156" style="width: 116.85pt; border-right-width: 1pt; border-style: none solid solid; border-right-color: windowtext; border-bottom-width: 1pt; border-bottom-color: windowtext; border-left-width: 1pt; border-left-color: windowtext; padding: 0cm 5.4pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
+                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child.mood.very_happy}&nbsp;</span></p>
                                          </td>
                                          <td colspan="1" rowspan="1" width="156" style="border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
+                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child.mood.happy}&nbsp;</span></p>
                                          </td>
                                          <td colspan="1" rowspan="1" width="156" style="border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
+                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child.mood.unsure}&nbsp;</span></p>
                                          </td>
                                          <td colspan="1" rowspan="1" width="156" style="border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></p>
+                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child.mood.sad}&nbsp;</span></p>
                                          </td>
                                       </tr>
                                    </tbody>
@@ -289,7 +263,7 @@ class GarderieRainbowDailyAgenda
                                    <tbody>
                                       <tr style="min-height: 15.95pt;">
                                          <td colspan="1" rowspan="1" width="76" style="width: 2cm; border: 1pt solid windowtext; padding: 0cm 5.4pt; min-height: 15.95pt;">
-                                            <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;"><b>&nbsp;</b></span></div>
+                                            <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child.bring_diapers}&nbsp;</span></div>
                                          </td>
                                          <td colspan="1" rowspan="1" width="558" style="width: 418.2pt; border-top-width: 1pt; border-style: solid solid solid none; border-top-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; border-bottom-width: 1pt; border-bottom-color: windowtext; padding: 0cm 5.4pt; min-height: 15.95pt;">
                                             <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><b><span lang="FR-CA" style="font-size: 14pt;">Couche/</span><span lang="EN-US" style="font-size: 14pt;">Diapers</span></b></div>
@@ -297,7 +271,7 @@ class GarderieRainbowDailyAgenda
                                       </tr>
                                       <tr style="min-height: 22.15pt;">
                                          <td colspan="1" rowspan="1" width="76" style="width: 2cm; border-right-width: 1pt; border-style: none solid solid; border-right-color: windowtext; border-bottom-width: 1pt; border-bottom-color: windowtext; border-left-width: 1pt; border-left-color: windowtext; padding: 0cm 5.4pt; min-height: 22.15pt;">
-                                            <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;"><b>&nbsp;</b></span></div>
+                                            <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child.bring_extra_clothes}&nbsp;</span></div>
                                          </td>
                                          <td colspan="1" rowspan="1" width="558" style="width: 418.2pt; border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt; min-height: 22.15pt;">
                                             <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><b><span lang="FR-CA" style="font-size: 14pt;">Vêtements supplémentaires/</span><span lang="EN-US" style="font-size: 14pt;">Extra clothes</span><span lang="FR-CA" style="font-size: 14pt;"></span></b></div>
@@ -305,7 +279,7 @@ class GarderieRainbowDailyAgenda
                                       </tr>
                                       <tr style="min-height: 18.65pt;">
                                          <td colspan="1" rowspan="1" width="76" style="width: 2cm; border-right-width: 1pt; border-style: none solid solid; border-right-color: windowtext; border-bottom-width: 1pt; border-bottom-color: windowtext; border-left-width: 1pt; border-left-color: windowtext; padding: 0cm 5.4pt; min-height: 18.65pt;">
-                                            <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;"><b>&nbsp;</b></span></div>
+                                            <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child.bring_special_milk_or_formula}&nbsp;</span></div>
                                          </td>
                                          <td colspan="1" rowspan="1" width="558" style="width: 418.2pt; border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt; min-height: 18.65pt;">
                                             <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><b><span lang="FR-CA" style="font-size: 14pt;">Lait ou formule spéciale/</span><span lang="FR" style="font-size: 14pt;">Special milk or formula</span><span lang="FR-CA" style="font-size: 14pt;"></span></b></div>
@@ -313,7 +287,7 @@ class GarderieRainbowDailyAgenda
                                       </tr>
                                       <tr style="min-height: 17.7pt;">
                                          <td colspan="1" rowspan="1" width="76" style="width: 2cm; border-right-width: 1pt; border-style: none solid solid; border-right-color: windowtext; border-bottom-width: 1pt; border-bottom-color: windowtext; border-left-width: 1pt; border-left-color: windowtext; padding: 0cm 5.4pt; min-height: 17.7pt;">
-                                            <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="FR" style="font-size: 14pt;"><b>&nbsp;</b></span></div>
+                                            <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="FR" style="font-size: 14pt;">#{'x' if @child.bring_wipes}&nbsp;</span></div>
                                          </td>
                                          <td colspan="1" rowspan="1" width="558" style="width: 418.2pt; border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt; min-height: 17.7pt;">
                                             <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><b><span lang="FR-CA" style="font-size: 14pt;">Lingettes/</span><span lang="EN-US" style="font-size: 14pt;">Wipes</span><span lang="FR" style="font-size: 14pt;"></span></b></div>
@@ -324,17 +298,17 @@ class GarderieRainbowDailyAgenda
                                             <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; line-height: normal;"><b><span style="font-size: medium;"><font face="arial, sans-serif">Autre/Other:</font></span></b></div>
                                          </td>
                                          <td colspan="1" rowspan="1" width="558" style="width: 418.2pt; border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt; min-height: 17.7pt;">
-                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;"></span><span lang="FR" style="font-size: 14pt;"></span></p>
+                                            <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{@child.bring_other}</span><span lang="FR" style="font-size: 14pt;"></span></p>
                                          </td>
                                       </tr>
                                    </tbody>
                                 </table>
                                 <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></b></p>
-                                <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="EN-US" style="font-size: 14pt;">Je me suis amusé quand/I had fun when we:</span></b></p>
+                                <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="EN-US" style="font-size: 14pt;">Je me suis amusé quand/I had fun when we:&nbsp;#{@child.i_had_fun_when_we}</span></b></p>
                                 <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="EN-US" style="font-size: 14pt;">&nbsp;</span></b></p>
-                                <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="FR-CA" style="font-size: 14pt;">Notes spéciales /&nbsp;</span></b><b><span lang="FR" style="font-size: 14pt;">Special notes:</span></b></p>
+                                <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="FR-CA" style="font-size: 14pt;">Notes spéciales /&nbsp;</span></b><b><span lang="FR" style="font-size: 14pt;">Special notes:&nbsp;#{@child.special_notes}</span></b></p>
                                 <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="FR" style="font-size: 14pt;">&nbsp;</span></b></p>
-                                <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="FR" style="font-size: 14pt;">Nom de l’éducatrice / Educator name:</span></b><span lang="FR-CA" style="font-size: 14pt;"></span></p>
+                                <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="FR" style="font-size: 14pt;">Nom de l’éducatrice / Educator name:&nbsp;#{@child.educator_name}</span></b><span lang="FR-CA" style="font-size: 14pt;"></span></p>
                                 <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="FR" style="font-size: 14pt;"><br clear="none"></span></b></p>
                                 <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-family: Calibri, sans-serif;"><b><span lang="FR"><font size="4"><font color="#f1c232">HAVE A NICE DAY</font>&nbsp;<span style="margin-right: 0.2ex; margin-left: 0.2ex; vertical-align: middle; min-height: 24px; width: 24px;">🤗</span></font></span></b></p>
                                 <div></div>

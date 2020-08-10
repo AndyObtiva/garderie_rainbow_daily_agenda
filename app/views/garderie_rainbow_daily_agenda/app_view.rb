@@ -319,24 +319,32 @@ class GarderieRainbowDailyAgenda
               row_layout
             
               composite {
+                row_layout {
+                  pack true
+                }
+                
                 label {     
                   layout_data(:left, :center, false, false)    
                   font height: 16
                   text "Je me suis endormi à / I fell asleep at:"
                 }               
                         
-                c_date_time(CDT::BORDER | CDT::SIMPLE | CDT::CLOCK_24_HOUR | CDT::TIME_MEDIUM) {
+                c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::CLOCK_24_HOUR | CDT::TIME_MEDIUM) {
                   selection bind(self, 'child.nap_time_start')
                 }
               }
             
               composite {
+                row_layout {
+                  pack true
+                }
+                
                 label {         
                   font height: 16
                   text "Jusqu’à / Until:"
                 }
                 
-                c_date_time(CDT::BORDER | CDT::SIMPLE | CDT::CLOCK_24_HOUR | CDT::TIME_MEDIUM) {
+                c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::CLOCK_24_HOUR | CDT::TIME_MEDIUM) {
                   selection bind(self, 'child.nap_time_end')
                 }
               }
@@ -662,22 +670,28 @@ class GarderieRainbowDailyAgenda
               foreground rgb(239, 190, 45)
             }   
             
-            label {
+            @email_label = label {
               layout_data(:left, :center, false, false)
               font height: 18
               text "Courriel / Email:"
             }
-            text {
+            @email_text = text {
               layout_data(:fill, :center, true, false)
               font height: 18
               text bind(self, 'child.email')
               on_focus_gained { |event|
                 event.widget.select_all
               }
+              on_key_pressed { |event|
+                send_email if event.keyCode == swt(:cr)
+              }                               
             }
             button {
               layout_data(:left, :center, false, false)
               text 'Send'
+              on_key_pressed { |event|
+                send_email if event.keyCode == swt(:cr)
+              }                               
               on_widget_selected {
                 send_email
               }
@@ -725,15 +739,30 @@ class GarderieRainbowDailyAgenda
     end       
     
     def send_email
+      unless EmailAddress.valid?(@child.email)
+        @email_label.content {
+          foreground :red
+          tool_tip_text 'Email is invalid!'
+        }
+
+        @email_text.set_focus
+        return
+      end
+      @email_label.content {
+        foreground :black
+        tool_tip_text nil
+      }
+    
       @progress_dialog = dialog {
         grid_layout(1, false)
         text body_root.shell.text
         label(:center) {
           layout_data :fill, :top, true, false
           text "Soyez Patienter / Sending Email To \"#{@child.name}\" <#{@child.email}>..."
+          font height: 16
         }
         progress_bar(:indeterminate) {
-          layout_data :fill, :fill, true, true
+          layout_data(:fill, :fill, true, true)
         }
       }
 
