@@ -37,7 +37,7 @@ class GarderieRainbowDailyAgenda
       @image_doll_on_toilet = image(File.join(APP_ROOT, 'images', 'doll_on_toilet.gif'))
       @image_smilie_big_smile = image(File.join(APP_ROOT, 'images', 'smilie_big_smile.gif'))
       @image_smilie_smile = image(File.join(APP_ROOT, 'images', 'smilie_smile.gif'))
-      @image_smilie_unsure = image(File.join(APP_ROOT, 'images', 'smilie_unsure.gif'))
+      @image_smilie_unsure = image(File.join(APP_ROOT, 'images', 'smilie_unsure.png'))
       @image_smilie_sad = image(File.join(APP_ROOT, 'images', 'smilie_sad.png'))
       @child = Child.new
       @new_drink_labels = {}
