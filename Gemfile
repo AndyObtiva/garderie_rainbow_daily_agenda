@@ -7,6 +7,7 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 gem 'glimmer-dsl-swt', '~> 0.6.3'
 gem 'glimmer-cw-cdatetime-nebula', '~> 1.4.0.1'
 gem 'activemodel', '~> 5.2.4.3', require: 'active_model'
+gem 'mailhandler', '~> 1.0.56'
 
 group :development do
   gem 'rspec', '~> 3.5.0'

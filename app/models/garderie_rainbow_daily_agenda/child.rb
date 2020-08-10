@@ -16,7 +16,8 @@ class GarderieRainbowDailyAgenda
                   :bring_other,
                   :i_had_fun_when_we,
                   :special_notes,
-                  :educator_name
+                  :educator_name,
+                  :email
     attr_writer :new_drink, :new_potty_time
     
     def meals

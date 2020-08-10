@@ -1,5 +1,6 @@
 require 'models/garderie_rainbow_daily_agenda/child'
 require 'models/garderie_rainbow_daily_agenda/drink'
+require 'models/garderie_rainbow_daily_agenda/email_message'
 require 'views/garderie_rainbow_daily_agenda/meal_serving_radio_group.rb'
 
 class GarderieRainbowDailyAgenda
@@ -12,6 +13,8 @@ class GarderieRainbowDailyAgenda
     # option :width, default: 320
     # option :height, default: 240
     option :greeting, default: 'Hello, World!'
+
+    attr_accessor :child
 
     ## Use before_body block to pre-initialize variables to use in body
     #
@@ -28,6 +31,7 @@ class GarderieRainbowDailyAgenda
         }
       }
       @image_baby_milk_bottle = image(File.join(APP_ROOT, 'images', 'baby_milk_bottle.png'))
+      @image_milk_glass = image(File.join(APP_ROOT, 'images', 'milk_glass.png'))
       @image_sleeping_baby = image(File.join(APP_ROOT, 'images', 'sleeping_baby.png'))
       @image_diaper = image(File.join(APP_ROOT, 'images', 'diaper.png'))
       @image_doll_on_toilet = image(File.join(APP_ROOT, 'images', 'doll_on_toilet.gif'))
@@ -97,10 +101,11 @@ class GarderieRainbowDailyAgenda
               font height: 18
               text "Nom de l’enfant / Child's Name: "
             }
-            text {
+            @initial_focus_widget = text {
               layout_data(:fill, :center, true, false)
               font height: 18
-              text bind(@child, :name)
+              text bind(self, 'child.name')
+              focus true
               on_focus_gained { |event|
                 event.widget.select_all
               }
@@ -191,7 +196,7 @@ class GarderieRainbowDailyAgenda
                 # row
 
                 composite {
-                  grid_layout(2, false) {
+                  grid_layout(3, false) {
                     margin_width 0
                     margin_height 0
                   }
@@ -201,6 +206,9 @@ class GarderieRainbowDailyAgenda
                   label {
                     image @image_baby_milk_bottle.scale_to(48, 48)
                   }
+                  label {
+                    image @image_milk_glass.scale_to(48, 48)
+                  }                
                   @new_drink_labels[:milk_time] = label {
                     layout_data(:left, :bottom, false, false)
                     font height: 16, style: :bold
@@ -227,7 +235,7 @@ class GarderieRainbowDailyAgenda
                   layout_data(:left, :center, false, false) {
                     width_hint 395
                   }
-                  selection bind(@child, 'new_drink.milk_time')
+                  selection bind(self, 'child.new_drink.milk_time')
                   on_key_pressed { |event|
                     @new_drink_inputs[:fluid_amount].swt_widget.set_focus if event.keyCode == swt(:cr)
                   }                               
@@ -237,7 +245,7 @@ class GarderieRainbowDailyAgenda
                   layout_data(:left, :center, false, false) {
                     width_hint 393
                   }
-                  text bind(@child, 'new_drink.fluid_amount')
+                  text bind(self, 'child.new_drink.fluid_amount')
                   on_key_pressed { |event|
                     add_drink if event.keyCode == swt(:cr)
                   }                               
@@ -269,7 +277,7 @@ class GarderieRainbowDailyAgenda
                   width 400
                 }
                             
-                items bind(@child, :drinks), column_properties(:milk_time, :fluid_amount)
+                items bind(self, 'child.drinks'), column_properties(:milk_time, :fluid_amount)
                             
                 on_mouse_up { |event|
                   table_proxy.edit_table_item(event.table_item, event.column_index)
@@ -318,7 +326,7 @@ class GarderieRainbowDailyAgenda
                 }               
                         
                 c_date_time(CDT::BORDER | CDT::SIMPLE | CDT::CLOCK_24_HOUR | CDT::TIME_MEDIUM) {
-                  selection bind(@child, :nap_time_start)                  
+                  selection bind(self, 'child.nap_time_start')
                 }
               }
             
@@ -329,7 +337,7 @@ class GarderieRainbowDailyAgenda
                 }
                 
                 c_date_time(CDT::BORDER | CDT::SIMPLE | CDT::CLOCK_24_HOUR | CDT::TIME_MEDIUM) {
-                  selection bind(@child, :nap_time_end)
+                  selection bind(self, 'child.nap_time_end')
                 }
               }
               
@@ -428,7 +436,7 @@ class GarderieRainbowDailyAgenda
                   layout_data(:left, :center, false, false) {
                     width_hint 155
                   }
-                  selection bind(@child, 'new_potty_time.change_time')
+                  selection bind(self, 'child.new_potty_time.change_time')
                   on_key_pressed { |event|
                     @new_potty_time_inputs[:wet].swt_widget.set_focus if event.keyCode == swt(:cr)
                   }                               
@@ -438,7 +446,7 @@ class GarderieRainbowDailyAgenda
                   layout_data(:left, :center, false, false) {
                     width_hint 153
                   }
-                  selection bind(@child, 'new_potty_time.wet')
+                  selection bind(self, 'child.new_potty_time.wet')
                   on_key_pressed { |event|
                     @new_potty_time_inputs[:bm].swt_widget.set_focus if event.keyCode == swt(:cr)
                   }                               
@@ -448,7 +456,7 @@ class GarderieRainbowDailyAgenda
                   layout_data(:left, :center, false, false) {
                     width_hint 151
                   }
-                  selection bind(@child, 'new_potty_time.bm')
+                  selection bind(self, 'child.new_potty_time.bm')
                   on_key_pressed { |event|
                     @new_potty_time_inputs[:diaper].swt_widget.set_focus if event.keyCode == swt(:cr)
                   }                               
@@ -458,7 +466,7 @@ class GarderieRainbowDailyAgenda
                   layout_data(:left, :center, false, false) {
                     width_hint 151
                   }
-                  selection bind(@child, 'new_potty_time.diaper')
+                  selection bind(self, 'child.new_potty_time.diaper')
                   on_key_pressed { |event|
                     @new_potty_time_inputs[:toilet].swt_widget.set_focus if event.keyCode == swt(:cr)
                   }                               
@@ -468,7 +476,7 @@ class GarderieRainbowDailyAgenda
                   layout_data(:left, :center, false, false) {
                     width_hint 151
                   }
-                  selection bind(@child, 'new_potty_time.toilet')
+                  selection bind(self, 'child.new_potty_time.toilet')
                   on_key_pressed { |event|
                     add_potty_time if event.keyCode == swt(:cr)
                   }                               
@@ -514,7 +522,7 @@ class GarderieRainbowDailyAgenda
                   editor :checkbox
                 }
                  
-                items bind(@child, :potty_times), column_properties(:change_time, :wet, :bm, :diaper, :toilet)
+                items bind(self, 'child.potty_times'), column_properties(:change_time, :wet, :bm, :diaper, :toilet)
                  
                 on_mouse_up { |event|
                   table_proxy.edit_table_item(event.table_item, event.column_index)
@@ -546,19 +554,19 @@ class GarderieRainbowDailyAgenda
                 row_layout
                 radio {
                   image @image_smilie_big_smile.scale_to(64, 64)
-                  selection bind(@child, 'mood.very_happy')         
+                  selection bind(self, 'child.mood.very_happy')         
                 }
                 radio {
                   image @image_smilie_smile.scale_to(64, 64)
-                  selection bind(@child, 'mood.happy')
+                  selection bind(self, 'child.mood.happy')
                 }
                 radio {
                   image @image_smilie_unsure.scale_to(64, 64)
-                  selection bind(@child, 'mood.unsure')
+                  selection bind(self, 'child.mood.unsure')
                 }
                 radio {
                   image @image_smilie_sad.scale_to(64, 64)
-                  selection bind(@child, 'mood.sad')
+                  selection bind(self, 'child.mood.sad')
                 }
               }
             }
@@ -575,22 +583,22 @@ class GarderieRainbowDailyAgenda
               checkbox {
                 font height: 18, style: :bold
                 text 'Couche/Diapers'
-                selection bind(@child, :bring_diapers)
+                selection bind(self, 'child.bring_diapers')
               }
               checkbox {
                 font height: 18, style: :bold
                 text 'Vêtements supplémentaires/Extra clothes'
-                selection bind(@child, :bring_extra_clothes)
+                selection bind(self, 'child.bring_extra_clothes')
               }
               checkbox {
                 font height: 18, style: :bold
                 text 'Lait ou formule spéciale/Special milk or formula'
-                selection bind(@child, :bring_special_milk_or_formula)
+                selection bind(self, 'child.bring_special_milk_or_formula')
               }
               checkbox {
                 font height: 18, style: :bold
                 text 'Lingettes/Wipes'
-                selection bind(@child, :bring_wipes)
+                selection bind(self, 'child.bring_wipes')
               }
             
               label {
@@ -600,7 +608,7 @@ class GarderieRainbowDailyAgenda
               
               text {
                 layout_data(:fill, :center, true, false)
-                text bind(@child, :bring_other)
+                text bind(self, 'child.bring_other')
               }
             
             }
@@ -613,7 +621,7 @@ class GarderieRainbowDailyAgenda
             text {
               layout_data(:fill, :center, true, false)
               font height: 18
-              text bind(@child, :i_had_fun_when_we)
+              text bind(self, 'child.i_had_fun_when_we')
               on_focus_gained { |event|
                 event.widget.select_all
               }
@@ -627,7 +635,7 @@ class GarderieRainbowDailyAgenda
             text {
               layout_data(:fill, :center, true, false)
               font height: 18
-              text bind(@child, :special_notes)
+              text bind(self, 'child.special_notes')
               on_focus_gained { |event|
                 event.widget.select_all
               }
@@ -641,7 +649,7 @@ class GarderieRainbowDailyAgenda
             text {
               layout_data(:fill, :center, true, false)
               font height: 18
-              text bind(@child, :educator_name)
+              text bind(self, 'child.educator_name')
               on_focus_gained { |event|
                 event.widget.select_all
               }
@@ -652,7 +660,29 @@ class GarderieRainbowDailyAgenda
               font height: 18, style: :bold
               text "HAVE A NICE DAY 🤗"
               foreground rgb(239, 190, 45)
-            }                                                                                                                                                                             
+            }   
+            
+            label {
+              layout_data(:left, :center, false, false)
+              font height: 18
+              text "Courriel / Email:"
+            }
+            text {
+              layout_data(:fill, :center, true, false)
+              font height: 18
+              text bind(self, 'child.email')
+              on_focus_gained { |event|
+                event.widget.select_all
+              }
+            }
+            button {
+              layout_data(:left, :center, false, false)
+              text 'Send'
+              on_widget_selected {
+                send_email
+              }
+            }
+                                                                                                                                                                                                                                                                                                                                                                
                                                                                                                                                                                                           
           } 
         
@@ -693,6 +723,56 @@ class GarderieRainbowDailyAgenda
         }
       end
     end       
+    
+    def send_email
+      @progress_dialog = dialog {
+        grid_layout(1, false)
+        text body_root.shell.text
+        label(:center) {
+          layout_data :fill, :top, true, false
+          text "Soyez Patienter / Sending Email To \"#{@child.name}\" <#{@child.email}>..."
+        }
+        progress_bar(:indeterminate) {
+          layout_data :fill, :fill, true, true
+        }
+      }
+
+      send_email_done = false      
+      Thread.new do
+        email_message = EmailMessage.new(@child)
+        GarderieRainbowDailyAgenda.email_sender.send_email(email_message.to_mail)
+        send_email_done = true
+        async_exec {
+          @progress_dialog.close
+        }
+      end
+        
+      @progress_dialog.open unless send_email_done
+      
+      if GarderieRainbowDailyAgenda.email_sender.sending&.finished_at
+        message_box(body_root, :icon_information) {
+          text body_root.shell.text
+          message 'Email Sent!'
+        }.open
+        reset
+      else
+        message_box(body_root, :icon_error) {
+          text body_root.shell.text
+          message "Email Failed!\n#{GarderieRainbowDailyAgenda.email_sender.sending&.response}"
+        }.open
+      end
+    rescue => e
+      Glimmer::Config.logger.error e.full_message
+      message_box(body_root, :icon_error) {
+        text body_root.shell.text
+        message "Email Error!\n#{e.full_message}"
+      }.open
+    end
+    
+    def reset
+      self.child = Child.new
+      @initial_focus_widget.setFocus
+    end
 
     def display_about_dialog
       message_box(body_root) {
