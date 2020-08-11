@@ -763,7 +763,7 @@ class GarderieRainbowDailyAgenda
     end       
     
     def send_email
-      unless EmailAddress.valid?(@child.email)
+      unless @child.valid?
         @email_label.content {
           foreground :red
           tool_tip_text 'Email is invalid!'
@@ -793,12 +793,10 @@ class GarderieRainbowDailyAgenda
       }
 
       send_email_done = false
-      email_sender = nil
       Thread.new do
         begin
           email_message = EmailMessage.new(@child)
-          email_sender = @email_service.email_sender
-          email_sender.send_email(email_message.to_mail)
+          @email_service.deliver!(email_message.to_mail)
           send_email_done = true
           async_exec {
             @progress_dialog.close
@@ -817,18 +815,13 @@ class GarderieRainbowDailyAgenda
         
       @progress_dialog.open unless send_email_done
       
-      if email_sender&.sending&.finished_at
+      if send_email_done
         message_box(body_root, :icon_information) {
           text body_root.shell.text
           message 'Email Sent!'
         }.open
-        reset
-      else
-        message_box(body_root, :icon_error) {
-          text body_root.shell.text
-          message "Email Failed!\n#{email_sender&.sending&.response}"
-        }.open
-      end
+        reset        
+      end  
     rescue Exception => e
       Glimmer::Config.logger.error e.full_message
       message_box(body_root, :icon_error) {

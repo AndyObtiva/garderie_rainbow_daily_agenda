@@ -1,3 +1,21 @@
-require_relative '../app/garderie_rainbow_daily_agenda'
+# Must do a round about way of launching the app as openssl requires 
+# a security permission to be approved and it only comes up if 
+# app is executed with "open"
 
-GarderieRainbowDailyAgenda.new.open
+require 'fileutils'
+
+begin
+  if !File.exist?('garderie_rainbow_daily_agenda.jar') || File.exist?('launch')
+    FileUtils.rm 'launch' rescue nil
+    
+    require_relative '../app/garderie_rainbow_daily_agenda'
+    
+    GarderieRainbowDailyAgenda.new.open
+  else
+    FileUtils.touch 'launch'
+    system "open --hide --background ../MacOS/Garderie\\ Rainbow\\ Daily\\ Agenda"
+  end
+rescue => e
+  Glimmer::Config.logger.error e.full_message
+  FileUtils.rm 'launch' rescue nil
+end

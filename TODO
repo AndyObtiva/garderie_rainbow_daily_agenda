@@ -1,2 +1,7 @@
-- Switch ENV['username'] with email address from preferences
+- Validate From Email in Preferences dialog
+- Add ENTER key shortcuts in Preferences dialog
 - Make changing start time affect end time if it surpasses it and vice versa
+- Use Public/Private Key Encryption for preferences on disk
+- Make c_date_time widgets open up when click inside the content not just the icon
+- Break steps down into a wizard to avoid the need for scrolling
+- Write an architecture/design document

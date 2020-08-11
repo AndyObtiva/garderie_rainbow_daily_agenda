@@ -20,24 +20,10 @@ class GarderieRainbowDailyAgenda
       address.split('.')[-2..-1].join('.')
     end
         
-    def email_sender
-      # note: gotta assign local vars first because of their bad DSL that evaluates blocks in a different context
-      address_var = address
-      domain_var = domain
-      port_var = port
-      username_var = username
-      password_var = password
-      use_ssl_var = use_ssl
-      from_email_var = from_email
-      from_name_var = from_name
-      @email_sender = MailHandler.sender(:smtp) do |dispatcher|
-        dispatcher.address = address_var
-        dispatcher.port = port_var
-        dispatcher.domain = domain_var
-        dispatcher.username = username_var
-        dispatcher.password = password_var
-        dispatcher.use_ssl = use_ssl_var
-      end
+    def deliver!(mail)
+      mail.delivery_method :smtp, address: address, port: port, domain: domain, user_name: username, password: password, enable_starttls_auto: use_ssl
+
+      mail.deliver!
     end
     
   end

@@ -56,7 +56,6 @@ end
 
 require 'glimmer/rake_task'
 Glimmer::Package.javapackager_extra_args =
-  " -native dmg" +
   " -name 'Garderie Rainbow Daily Agenda'" +
   " -title 'Garderie Rainbow Daily Agenda'" +
   " -Bmac.CFBundleName='Garderie Rainbow Daily Agenda'" +

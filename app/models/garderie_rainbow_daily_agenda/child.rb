@@ -5,6 +5,8 @@ require 'models/garderie_rainbow_daily_agenda/potty_time'
 
 class GarderieRainbowDailyAgenda
   class Child
+    include ActiveModel::Model
+  
     MEAL_TYPES = [:breakfast, :lunch, :pm_snack]
     attr_accessor :name, 
                   :nap_time_start, 
@@ -19,6 +21,8 @@ class GarderieRainbowDailyAgenda
                   :educator_name,
                   :email
     attr_writer :new_drink, :new_potty_time
+    
+    validates :email, presence: true, email: true
     
     def nap_time_start_string
       return if nap_time_start.nil?
