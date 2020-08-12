@@ -19,9 +19,9 @@ class GarderieRainbowDailyAgenda
         to to
         subject subject
       end.tap do |mail|
-        mail.attachments['garderie_rainbow_daily_agenda_logo.png'] = File.read(File.join(APP_ROOT, 'images', 'garderie_rainbow_daily_agenda_logo.png'))
-        mail.attachments['baby_milk_bottle.png'] = File.read(File.join(APP_ROOT, 'images', 'baby_milk_bottle.png'))
-        mail.attachments['milk_glass.png'] = File.read(File.join(APP_ROOT, 'images', 'milk_glass.png'))
+        mail.attachments['garderie_rainbow_daily_agenda_logo.png'] = { mime_type: 'image/png', content: File.read(File.join(APP_ROOT, 'images', 'garderie_rainbow_daily_agenda_logo.png')) }
+        mail.attachments['baby_milk_bottle.png'] = { mime_type: 'image/png', content: File.read(File.join(APP_ROOT, 'images', 'baby_milk_bottle.png')) }
+        mail.attachments['milk_glass.png'] = { mime_type: 'image/png', content: File.read(File.join(APP_ROOT, 'images', 'milk_glass.png')) }
         body = html(mail.attachments)
         mail.html_part = Mail::Part.new do
           content_type 'text/html; charset=UTF-8'
