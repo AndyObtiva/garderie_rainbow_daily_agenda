@@ -5,7 +5,7 @@
 require 'fileutils'
 
 begin
-  if !File.exist?('garderie_rainbow_daily_agenda.jar') || File.exist?('launch')
+  if OS.windows? || !File.exist?('garderie_rainbow_daily_agenda.jar') || File.exist?('launch')
     FileUtils.rm 'launch' rescue nil
     
     require_relative '../app/garderie_rainbow_daily_agenda'

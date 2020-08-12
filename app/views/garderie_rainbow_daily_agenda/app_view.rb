@@ -77,7 +77,7 @@ class GarderieRainbowDailyAgenda
             menu_item {
               text 'Preferences...'
               on_widget_selected {
-                display_about_dialog
+                preferences.open
               }
             }
           }
@@ -855,7 +855,7 @@ class GarderieRainbowDailyAgenda
     def display_about_dialog
       message_box(body_root) {
         text 'About'
-        message "Garderie Rainbow Daily Agenda - App View #{VERSION}\n\n#{LICENSE}"
+        message "Garderie Rainbow Daily Agenda #{VERSION}\n\n#{LICENSE}"
       }.open
     end    
 
