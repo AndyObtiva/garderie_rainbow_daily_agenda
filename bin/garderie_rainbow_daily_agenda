@@ -3,6 +3,7 @@
 # app is executed with "open"
 
 require 'fileutils'
+require 'os'
 
 begin
   if OS.windows? || !File.exist?('garderie_rainbow_daily_agenda.jar') || File.exist?('launch')
@@ -16,6 +17,8 @@ begin
     system "open ../MacOS/Garderie\\ Rainbow\\ Daily\\ Agenda"
   end
 rescue => e
+  require 'glimmer-dsl-swt'
+  Glimmer::Config.logging_devices = [:stdout, :file, :syslog]  
   Glimmer::Config.logger.error e.full_message
   FileUtils.rm 'launch' rescue nil
 end
