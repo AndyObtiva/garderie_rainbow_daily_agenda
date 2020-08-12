@@ -77,6 +77,9 @@ class GarderieRainbowDailyAgenda
             layout_data(:fill, :top, true, false)
             font height: 16
             text bind(@email_service, :port)
+            on_verify_text { |event|
+              event.doit = !!event.text.match(/^\d*$/)
+            }
             on_key_pressed { |event|
               @inputs[:authentication].set_focus if event.keyCode == swt(:cr)
             }                               
@@ -183,6 +186,17 @@ class GarderieRainbowDailyAgenda
             }
             
             button {
+              text '&Reset'
+              font height: 16
+              on_key_pressed { |event|
+                reset if event.keyCode == swt(:cr)
+              }                               
+              on_widget_selected {
+                reset
+              }
+            }            
+            
+            button {
               text '&Cancel'
               font height: 16
               on_key_pressed { |event|
@@ -198,12 +212,16 @@ class GarderieRainbowDailyAgenda
       }
     }
     
+    def reset
+      @email_service.reset
+    end
+    
     def close
       @closed_from_preferences = true
       body_root.close
     end
     
-    def cancel    
+    def cancel
       @cancelled = true
       @email_service.reset
       close unless @closed_from_preferences
