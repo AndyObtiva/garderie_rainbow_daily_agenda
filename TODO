@@ -1,4 +1,5 @@
 - Validate From Email in Preferences dialog
+- Make child name required in main form
 - Add ENTER key shortcuts in Preferences dialog
 - Make changing start time affect end time if it surpasses it and vice versa
 - Use Public/Private Key Encryption for preferences on disk
