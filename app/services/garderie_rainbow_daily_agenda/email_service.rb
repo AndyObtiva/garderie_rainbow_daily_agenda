@@ -58,7 +58,7 @@ class GarderieRainbowDailyAgenda
     end
     
     def rsa_private_key_file
-      File.join(APP_ROOT, 'config', '.rsa')
+      File.join('config', '.rsa')
     end
     
     def rsa_private_key
@@ -69,6 +69,7 @@ class GarderieRainbowDailyAgenda
       private_key = rsa_private_key
       OpenSSL::PKey::RSA.new(private_key || 2048).tap do |loaded_rsa|
         if private_key.nil?
+          FileUtils.mkdir_p(File.dirname(rsa_private_key_file))
           File.write(rsa_private_key_file, loaded_rsa.to_pem) if private_key.nil?
           FileUtils.chmod(0600, rsa_private_key_file)
         end
@@ -76,11 +77,12 @@ class GarderieRainbowDailyAgenda
     end
     
     def config_file
-      @config_file ||= File.join(GarderieRainbowDailyAgenda::APP_ROOT, 'config', 'email_service.yml')
+      @config_file ||= File.join('config', 'email_service.yml')
     end        
     
     def save      
       config_yaml = YAML.dump(attributes)
+      FileUtils.mkdir_p(File.dirname(config_file))
       File.write(config_file, rsa.public_encrypt(config_yaml)) unless config_yaml.to_s.empty?
     end
     

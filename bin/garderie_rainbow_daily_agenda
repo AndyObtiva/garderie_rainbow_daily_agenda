@@ -13,7 +13,7 @@ begin
     GarderieRainbowDailyAgenda.new.open
   else
     FileUtils.touch 'launch'
-    system "open --hide --background ../MacOS/Garderie\\ Rainbow\\ Daily\\ Agenda"
+    system "open ../MacOS/Garderie\\ Rainbow\\ Daily\\ Agenda"
   end
 rescue => e
   Glimmer::Config.logger.error e.full_message
