@@ -75,7 +75,7 @@ class GarderieRainbowDailyAgenda
           menu {
             text '&File'
             menu_item {
-              text 'Preferences...'
+              text '&Preferences...'
               on_widget_selected {
                 preferences.open
               }
