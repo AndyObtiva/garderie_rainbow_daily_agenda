@@ -210,15 +210,15 @@ class GarderieRainbowDailyAgenda
     end
     
     def validate
+      unless @email_service.valid?
+        @inputs[@email_service.errors.keys.first].swt_widget.set_focus
+      end
       @labels.each do |attribute, label|
         label.content {
           foreground @email_service.errors.keys.include?(attribute) ? :red : :black
           tool_tip_text @email_service.errors.keys.include?(attribute) ? @email_service.errors[attribute].first : nil
         }
       end    
-      unless @email_service.valid?
-        @inputs[@email_service.errors.keys.first].swt_widget.set_focus
-      end
     end
     
     def save

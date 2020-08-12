@@ -8,7 +8,8 @@ class GarderieRainbowDailyAgenda
     attr_accessor *ATTRIBUTES
     
     validates *ATTRIBUTES_REQUIRED, presence: true
-    
+    validates :port, numericality: true
+    validates :from_email, email: true
      
     class << self
       def instance
