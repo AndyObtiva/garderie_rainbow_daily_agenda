@@ -22,6 +22,8 @@ class GarderieRainbowDailyAgenda
                   :email
     attr_writer :new_drink, :new_potty_time
     
+    validates :name, presence: true
+    validates :educator_name, presence: true
     validates :email, presence: true, email: true
     
     def nap_time_start_string

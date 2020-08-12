@@ -50,6 +50,8 @@ class GarderieRainbowDailyAgenda
       @new_drink_inputs = {}
       @new_potty_time_labels = {}
       @new_potty_time_inputs = {}
+      @required_labels = {}
+      @required_inputs = {}
       
       @email_service = EmailService.instance
     }
@@ -104,12 +106,12 @@ class GarderieRainbowDailyAgenda
               text 'Agenda Quotidien / Daily Agenda'
             }
             
-            label {
+            @required_labels[:name] = label {
               layout_data(:left, :center, false, false)
               font height: 18
               text "Nom de l’enfant / Child's Name: "
             }
-            @initial_focus_widget = text {
+            @initial_focus_widget = @required_inputs[:name] = text {
               layout_data(:fill, :center, true, false)
               font height: 18
               text bind(self, 'child.name')
@@ -661,12 +663,12 @@ class GarderieRainbowDailyAgenda
               }
             }
             
-            label {
+            @required_labels[:educator_name] = label {
               layout_data(:left, :center, false, false)
               font height: 18
               text "Nom de l’éducatrice / Educator name:"
             }
-            text {
+            @required_inputs[:educator_name] = text {
               layout_data(:fill, :center, true, false)
               font height: 18
               text bind(self, 'child.educator_name')
@@ -682,12 +684,12 @@ class GarderieRainbowDailyAgenda
               foreground rgb(239, 190, 45)
             }   
             
-            @email_label = label {
+            @required_labels[:email] = label {
               layout_data(:left, :center, false, false)
               font height: 18
               text "Courriel / Email:"
             }
-            @email_text = text {
+            @required_inputs[:email] = text {
               layout_data(:fill, :center, true, false)
               font height: 18
               text bind(self, 'child.email')
@@ -702,11 +704,15 @@ class GarderieRainbowDailyAgenda
               row_layout {
                 margin_width 0
                 margin_height 0
+                margin_left 0
+                margin_right 0
+                margin_top 15
+                margin_bottom 0                          
               }
               layout_data(:left, :center, false, false)
               button {
                 text 'Send'
-                font height: 16
+                font height: 14
                 on_key_pressed { |event|
                   send_email if event.keyCode == swt(:cr)
                 }                               
@@ -716,7 +722,7 @@ class GarderieRainbowDailyAgenda
               }
               button {
                 text 'Clear Form'
-                font height: 16
+                font height: 14
                 on_key_pressed { |event|
                   reset if event.keyCode == swt(:cr)
                 }                               
@@ -767,20 +773,21 @@ class GarderieRainbowDailyAgenda
       end
     end       
     
-    def send_email
+    def validate
       unless @child.valid?
-        @email_label.content {
-          foreground :red
-          tool_tip_text 'Email is invalid!'
-        }
-
-        @email_text.set_focus
-        return
+        @required_inputs[@child.errors.keys.first].swt_widget.set_focus
       end
-      @email_label.content {
-        foreground :black
-        tool_tip_text nil
-      }
+      @required_labels.each do |attribute, label|
+        label.content {
+          foreground @child.errors.keys.include?(attribute) ? :red : :black
+          tool_tip_text @child.errors.keys.include?(attribute) ? @child.errors[attribute].first : nil
+        }
+      end
+    end
+    
+    def send_email
+      validate
+      return unless @child.valid?
       
       unless @email_service.valid?
         @preferences = preferences

@@ -168,6 +168,10 @@ class GarderieRainbowDailyAgenda
             row_layout {
               margin_width 0
               margin_height 0
+              margin_left 0
+              margin_right 0
+              margin_top 15
+              margin_bottom 0
             }
             
             layout_data(:fill, :top, true, false) {
@@ -176,7 +180,7 @@ class GarderieRainbowDailyAgenda
             
             button {
               text '&Save'
-              font height: 16
+              font height: 14
               on_key_pressed { |event|
                 save if event.keyCode == swt(:cr)
               }                               
@@ -187,7 +191,7 @@ class GarderieRainbowDailyAgenda
             
             button {
               text '&Reset'
-              font height: 16
+              font height: 14
               on_key_pressed { |event|
                 reset if event.keyCode == swt(:cr)
               }                               
@@ -198,7 +202,7 @@ class GarderieRainbowDailyAgenda
             
             button {
               text '&Cancel'
-              font height: 16
+              font height: 14
               on_key_pressed { |event|
                 cancel if event.keyCode == swt(:cr)
               }                               

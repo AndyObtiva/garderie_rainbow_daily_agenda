@@ -1,5 +1,3 @@
-- Make child name required in main form
-- Enter key shortcuts in main form
 - Make changing start time affect end time if it surpasses it and vice versa
 - Make c_date_time widgets open up when click inside the content not just the icon
 - Break steps down into a wizard to avoid the need for scrolling
