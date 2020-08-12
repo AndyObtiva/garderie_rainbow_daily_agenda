@@ -699,10 +699,14 @@ class GarderieRainbowDailyAgenda
               }                               
             }
             composite {
-              row_layout
+              row_layout {
+                margin_width 0
+                margin_height 0
+              }
               layout_data(:left, :center, false, false)
               button {
                 text 'Send'
+                font height: 16
                 on_key_pressed { |event|
                   send_email if event.keyCode == swt(:cr)
                 }                               
@@ -712,6 +716,7 @@ class GarderieRainbowDailyAgenda
               }
               button {
                 text 'Clear Form'
+                font height: 16
                 on_key_pressed { |event|
                   reset if event.keyCode == swt(:cr)
                 }                               
@@ -777,7 +782,11 @@ class GarderieRainbowDailyAgenda
         tool_tip_text nil
       }
       
-      preferences.open unless @email_service.valid?
+      unless @email_service.valid?
+        @preferences = preferences
+        @preferences.open 
+        return if @preferences.cancelled?
+      end
     
       @progress_dialog = dialog {
         grid_layout(1, false)

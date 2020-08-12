@@ -60,3 +60,5 @@ dist
 packages      
 log/
 vendor/
+config/email_service.yml
+config/email_service_unencrypted.yml
