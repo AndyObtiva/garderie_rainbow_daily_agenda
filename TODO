@@ -4,4 +4,3 @@
 - Make c_date_time widgets open up when clicking inside the content not just the icon
 - Break steps down into a wizard to avoid the need for scrolling
 - Write an architecture/design document
-- Investigate if you could update the executable of the DMG app to a standard shell script that you launch the app through instead of the binary

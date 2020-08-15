@@ -2,23 +2,44 @@
 # a security permission to be approved and it only comes up if 
 # app is executed with "open"
 
-require 'fileutils'
-require 'os'
+# require 'fileutils'
+# require 'os'
+  require 'glimmer-dsl-swt'
 
+Glimmer::Config.logger.error 'begin'
 begin
-  if OS.windows? || !File.exist?('garderie_rainbow_daily_agenda.jar') || File.exist?('launch')
-    FileUtils.rm 'launch' rescue nil
+#   if OS.windows? || 
+#      !File.exist?('garderie_rainbow_daily_agenda.jar') || 
+#      File.exist?('launch')
     
+#     FileUtils.rm 'launch' rescue nil
+    
+Glimmer::Config.logger.error 'require relative'
     require_relative '../app/garderie_rainbow_daily_agenda'
+Glimmer::Config.logger.error 'new and open'
     
     GarderieRainbowDailyAgenda.new.open
-  else
-    FileUtils.touch 'launch'
-    system "open ../MacOS/Garderie\\ Rainbow\\ Daily\\ Agenda"
-  end
+#   else
+#     FileUtils.touch 'launch'
+#     app_jre_bin_dir = File.join('../PlugIns/Java.runtime/Contents/Home/jre/bin')
+#     java_file = File.join(app_jre_bin_dir, 'java')
+#     unless File.exist?(java_file)
+#       FileUtils.mkdir_p(app_jre_bin_dir)
+#       jar_app_root = File.expand_path('../..', __FILE__)
+#       jar_jre_bin_dir = File.join(jar_app_root, 'vendor', 'jre', 'bin')
+#       Dir.glob(File.join(jar_jre_bin_dir, '*')) do |jre_bin_file|
+#         jre_bin_file_content = File.binread(jre_bin_file)
+#         jre_bin_file_name = File.basename(jre_bin_file)
+#         app_jre_bin_file = File.join(app_jre_bin_dir, jre_bin_file_name)
+#         File.binwrite(app_jre_bin_file, jre_bin_file_content)
+#         FileUtils.chmod(0700, app_jre_bin_file)
+#       end
+#     end
+#     system "bash -c \"#{java_file} -XstartOnFirstThread -jar garderie_rainbow_daily_agenda.jar\""
+#   end
 rescue => e
   require 'glimmer-dsl-swt'
   Glimmer::Config.logging_devices = [:stdout, :file, :syslog]  
   Glimmer::Config.logger.error e.full_message
-  FileUtils.rm 'launch' rescue nil
+#   FileUtils.rm 'launch' rescue nil
 end

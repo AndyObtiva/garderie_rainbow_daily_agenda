@@ -66,7 +66,6 @@ GEM
       rdoc
       semver2
     jruby-jars (9.2.13.0)
-    jruby-openssl (0.10.4-java)
     jruby-rack (1.1.21)
     jwt (2.2.1)
     little-plugger (1.1.4)
@@ -140,7 +139,6 @@ DEPENDENCIES
   glimmer-cw-cdatetime-nebula (~> 1.4.0.1)
   glimmer-dsl-swt (~> 0.6.3)
   jeweler (= 2.3.9)
-  jruby-openssl (~> 0.10.4)
   mail (~> 2.7.1)
   rspec (~> 3.5.0)
   simplecov

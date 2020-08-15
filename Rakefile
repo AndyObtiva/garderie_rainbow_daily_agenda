@@ -55,11 +55,13 @@ Rake::RDocTask.new do |rdoc|
 end
 
 require 'glimmer/rake_task'
-Glimmer::Package.javapackager_extra_args =
-  " -name 'Garderie Rainbow Daily Agenda'" +
-  " -title 'Garderie Rainbow Daily Agenda'" +
-  " -Bmac.CFBundleName='Garderie Rainbow Daily Agenda'" +
-  " -Bmac.CFBundleIdentifier='org.garderierainbowdailyagenda.application.garderierainbowdailyagenda'" 
+# Glimmer::Package.javapackager_extra_args =
+  # " -allpermissions" +
+  # " -name 'Garderie Rainbow Daily Agenda'" +
+  # " -title 'Garderie Rainbow Daily Agenda'" +
+  # " -Bmac.CFBundleName='Garderie Rainbow Daily Agenda'" +
+  # " -Bmac.CFBundleIdentifier='org.garderierainbowdailyagenda.application.garderierainbowdailyagenda'" +
+  # " -Bmac.signing-key-developer-id-app=\"Andy Maleh\"" 
   # " -BlicenseType=" +
   # " -Bmac.category=" +
   # " -Bmac.signing-key-developer-id-app="

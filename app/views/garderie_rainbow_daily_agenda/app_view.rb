@@ -35,6 +35,8 @@ class GarderieRainbowDailyAgenda
           event.widget.shell.close if event.keyCode == swt(:esc) && event.widget.shell.get_data('proxy').has_style?(:dialog_trim)
         }
       }
+      Glimmer::Config.logger.error "File.join(APP_ROOT, 'images', 'baby_milk_bottle.png')"
+      Glimmer::Config.logger.error File.join(APP_ROOT, 'images', 'baby_milk_bottle.png')
       @image_baby_milk_bottle = image(File.join(APP_ROOT, 'images', 'baby_milk_bottle.png'))
       @image_milk_glass = image(File.join(APP_ROOT, 'images', 'milk_glass.png'))
       @image_sleeping_baby = image(File.join(APP_ROOT, 'images', 'sleeping_baby.png'))
