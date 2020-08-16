@@ -9,6 +9,7 @@ gem 'glimmer-cw-cdatetime-nebula', '~> 1.4.0.1'
 gem 'activemodel', '~> 5.2.4.3', require: 'active_model'
 gem 'mail', '~> 2.7.1'
 gem 'email_validator', '~> 2.0.1'
+gem 'jruby-openssl', '0.10.4', git: 'https://github.com/AndyObtiva/jruby-openssl.git', ref: 'v0.10.4-fix-load-mac-app'
 
 group :development do
   gem 'rspec', '~> 3.5.0'

@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/AndyObtiva/jruby-openssl.git
+  revision: a560df9dc03e7d8e4b1a8f0215d52e9e31b36507
+  ref: v0.10.4-fix-load-mac-app
+  specs:
+    jruby-openssl (0.10.4-java)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -139,6 +146,7 @@ DEPENDENCIES
   glimmer-cw-cdatetime-nebula (~> 1.4.0.1)
   glimmer-dsl-swt (~> 0.6.3)
   jeweler (= 2.3.9)
+  jruby-openssl (= 0.10.4)!
   mail (~> 2.7.1)
   rspec (~> 3.5.0)
   simplecov

@@ -17,7 +17,11 @@ class GarderieRainbowDailyAgenda
   VERSION = File.read(File.join(APP_ROOT, 'VERSION'))
   LICENSE = File.read(File.join(APP_ROOT, 'LICENSE.txt'))
   
-  def open    
-    app_view.open
+  def open
+    sync_exec {
+      @app_view = app_view
+      Splash.close
+      @app_view.open
+    }
   end
 end
