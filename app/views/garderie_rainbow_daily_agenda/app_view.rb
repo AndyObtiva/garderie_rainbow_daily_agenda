@@ -531,22 +531,22 @@ class GarderieRainbowDailyAgenda
                 }                                              
                 table_column {
                   width 160
-                  editor :checkbox
+                  editor :checkbox, property: :wet
                 }                            
                 table_column {
                   width 160
-                  editor :checkbox
+                  editor :checkbox, property: :bm
                 }
                 table_column {
                   width 160
-                  editor :checkbox
+                  editor :checkbox, property: :diaper
                 }                            
                 table_column {
                   width 160
-                  editor :checkbox
+                  editor :checkbox, property: :toilet
                 }
                  
-                items bind(self, 'child.potty_times'), column_properties(:change_time_string, :wet, :bm, :diaper, :toilet)
+                items bind(self, 'child.potty_times'), column_properties(:change_time_string, :wet_string, :bm_string, :diaper_string, :toilet_string)
                  
                 on_mouse_up { |event|
                   table_proxy.edit_table_item(event.table_item, event.column_index)
