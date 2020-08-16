@@ -1,1 +1,4 @@
 org.yaml:snakeyaml:1.26:compile:
+org.bouncycastle:bcprov-jdk15on:1.62:compile:
+org.bouncycastle:bcpkix-jdk15on:1.62:compile:
+org.bouncycastle:bctls-jdk15on:1.62:compile:
