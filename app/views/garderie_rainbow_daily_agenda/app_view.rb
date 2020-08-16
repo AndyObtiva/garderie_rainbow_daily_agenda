@@ -35,8 +35,6 @@ class GarderieRainbowDailyAgenda
           event.widget.shell.close if event.keyCode == swt(:esc) && event.widget.shell.get_data('proxy').has_style?(:dialog_trim)
         }
       }
-      Glimmer::Config.logger.error "File.join(APP_ROOT, 'images', 'baby_milk_bottle.png')"
-      Glimmer::Config.logger.error File.join(APP_ROOT, 'images', 'baby_milk_bottle.png')
       @image_baby_milk_bottle = image(File.join(APP_ROOT, 'images', 'baby_milk_bottle.png'))
       @image_milk_glass = image(File.join(APP_ROOT, 'images', 'milk_glass.png'))
       @image_sleeping_baby = image(File.join(APP_ROOT, 'images', 'sleeping_baby.png'))
@@ -243,7 +241,7 @@ class GarderieRainbowDailyAgenda
                           
                 # row
                           
-                @new_drink_inputs[:milk_time] = c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::TIME_MEDIUM) {
+                @new_drink_inputs[:milk_time] = c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::TIME_MEDIUM) { |proxy|
                   layout_data(:left, :center, false, false) {
                     width_hint 395
                   }
@@ -251,7 +249,15 @@ class GarderieRainbowDailyAgenda
                   selection bind(self, 'child.new_drink.milk_time')                  
                   on_key_pressed { |event|
                     @new_drink_inputs[:fluid_amount].swt_widget.set_focus if event.keyCode == swt(:cr)
-                  }                               
+                  }
+                  
+                  # Make c_date_time widgets open up when clicking inside the content not just the icon
+                  # Added to make GUI more user-friendly as per usability testing with actual user
+                  Glimmer::SWT::WidgetProxy.new(swt_widget: proxy.text_widget.control).content {
+                     on_swt_mouseup { |event|
+                     	proxy.swt_widget.set_open(!proxy.swt_widget.is_open)                     	
+                     }
+                  }
                 }
                 
                 @new_drink_inputs[:fluid_amount] = text {
@@ -342,9 +348,17 @@ class GarderieRainbowDailyAgenda
                   text "Je me suis endormi à / I fell asleep at:"
                 }               
                         
-                c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::TIME_MEDIUM) {
+                c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::TIME_MEDIUM) { |proxy|
                   selection bind(self, 'child.nap_time_start')
                   pattern 'hh:mm a'
+                  
+                  # Make c_date_time widgets open up when clicking inside the content not just the icon
+                  # Added to make GUI more user-friendly as per usability testing with actual user
+                  Glimmer::SWT::WidgetProxy.new(swt_widget: proxy.text_widget.control).content {
+                     on_swt_mouseup { |event|
+                     	proxy.swt_widget.set_open(!proxy.swt_widget.is_open)                     	
+                     }
+                  }
                 }
               }
             
@@ -358,9 +372,16 @@ class GarderieRainbowDailyAgenda
                   text "Jusqu’à / Until:"
                 }
                 
-                c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::TIME_MEDIUM) {
+                c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::TIME_MEDIUM) { |proxy|
                   selection bind(self, 'child.nap_time_end')
                   pattern 'hh:mm a'
+                  
+                  # added to make GUI more user-friendly as per usability testing with actual user
+                  Glimmer::SWT::WidgetProxy.new(swt_widget: proxy.text_widget.control).content {
+                     on_swt_mouseup { |event|
+                     	proxy.swt_widget.set_open(!proxy.swt_widget.is_open)                     	
+                     }
+                  }
                 }
               }
               
@@ -455,7 +476,7 @@ class GarderieRainbowDailyAgenda
                                           
                 # row
                                           
-                @new_potty_time_inputs[:change_time] = c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::TIME_MEDIUM) {
+                @new_potty_time_inputs[:change_time] = c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::TIME_MEDIUM) { |proxy|
                   layout_data(:left, :center, false, false) {
                     width_hint 155
                   }
@@ -463,7 +484,15 @@ class GarderieRainbowDailyAgenda
                   selection bind(self, 'child.new_potty_time.change_time')
                   on_key_pressed { |event|
                     @new_potty_time_inputs[:wet].swt_widget.set_focus if event.keyCode == swt(:cr)
-                  }                               
+                  }      
+                  
+                  # added to make GUI more user-friendly as per usability testing with actual user
+                  Glimmer::SWT::WidgetProxy.new(swt_widget: proxy.text_widget.control).content {
+                     on_swt_mouseup { |event|
+                     	proxy.swt_widget.set_open(!proxy.swt_widget.is_open)                     	
+                     }
+                  }
+                                                                    
                 }
                 
                 @new_potty_time_inputs[:wet] = checkbox {
