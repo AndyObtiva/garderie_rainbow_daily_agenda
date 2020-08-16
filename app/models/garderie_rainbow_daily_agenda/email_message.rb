@@ -19,9 +19,16 @@ class GarderieRainbowDailyAgenda
         to to
         subject subject
       end.tap do |mail|
-        mail.attachments['garderie_rainbow_daily_agenda_logo.png'] = { mime_type: 'image/png', content: File.read(File.join(APP_ROOT, 'images', 'garderie_rainbow_daily_agenda_logo.png')) }
-        mail.attachments['baby_milk_bottle.png'] = { mime_type: 'image/png', content: File.read(File.join(APP_ROOT, 'images', 'baby_milk_bottle.png')) }
-        mail.attachments['milk_glass.png'] = { mime_type: 'image/png', content: File.read(File.join(APP_ROOT, 'images', 'milk_glass.png')) }
+        FileUtils.mkdir_p('images')
+        attachment1 = File.join('images', 'garderie_rainbow_daily_agenda_logo.png')
+        FileUtils.cp(File.join(APP_ROOT, 'images', 'garderie_rainbow_daily_agenda_logo.png'), attachment1) unless File.exist?(attachment1)
+        mail.add_file(attachment1)
+        attachment2 = File.join('images', 'baby_milk_bottle.png') 
+        FileUtils.cp(File.join(APP_ROOT, 'images', 'baby_milk_bottle.png'), attachment2) unless File.exist?(attachment2)
+        mail.add_file(attachment2) 
+        attachment3 = File.join('images', 'milk_glass.png')
+        FileUtils.cp(File.join(APP_ROOT, 'images', 'milk_glass.png'), attachment3) unless File.exist?(attachment3)
+        mail.add_file(attachment3) 
         body = html(mail.attachments)
         mail.html_part = Mail::Part.new do
           content_type 'text/html; charset=UTF-8'
@@ -39,7 +46,7 @@ class GarderieRainbowDailyAgenda
                  <div dir="ltr">
                     <div dir="ltr">
                        <div dir="ltr">
-                          <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><img src="cid:#{attachments['garderie_rainbow_daily_agenda_logo.png'].content_id.match(REGEX_CONTENT_ID)[1]}" /></p>
+                          <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><img src="cid:#{attachments[0].content_id.match(REGEX_CONTENT_ID)[1]}" /></p>
                           <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="FR" style="font-size: 18pt;">Agenda Quotidien / Daily Agenda</span></b></p>
                           <p align="center" style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif; text-align: center;"><b><span lang="FR" style="font-size: 14pt;">&nbsp;</span></b></p>
                           <p style="margin: 0cm 0cm 8pt; line-height: 15.6933px; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="FR-CA" style="font-size: 14pt;">Nom de l’enfant&nbsp;</span></b><b><span lang="FR" style="font-size: 14pt;">/ Child's Name:&nbsp;#{@child.name}</span></b></p>
@@ -122,7 +129,7 @@ class GarderieRainbowDailyAgenda
                              <tbody>
                                 <tr>
                                    <td colspan="1" rowspan="1" width="312" style="width: 233.75pt; border: 1pt solid windowtext; padding: 0cm 5.4pt;">
-                                      <div><img src="cid:#{attachments['baby_milk_bottle.png'].content_id.match(REGEX_CONTENT_ID)[1]}" />&nbsp;<img height=48 width=48 src="cid:#{attachments['milk_glass.png'].content_id.match(REGEX_CONTENT_ID)[1]}" />&nbsp;<b style="font-family: Calibri, sans-serif; font-size: 11pt;"><span lang="FR" style="font-size: 14pt;">L’heure du lait /milk</span></b><b style="font-family: Calibri, sans-serif; font-size: 11pt;"><span lang="FR" style="font-size: 14pt;">&nbsp;time</span></b></div>
+                                      <div><img src="cid:#{attachments[1].content_id.match(REGEX_CONTENT_ID)[1]}" />&nbsp;<img height=48 width=48 src="cid:#{attachments[2].content_id.match(REGEX_CONTENT_ID)[1]}" />&nbsp;<b style="font-family: Calibri, sans-serif; font-size: 11pt;"><span lang="FR" style="font-size: 14pt;">L’heure du lait /milk</span></b><b style="font-family: Calibri, sans-serif; font-size: 11pt;"><span lang="FR" style="font-size: 14pt;">&nbsp;time</span></b></div>
                                       <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="FR" style="font-size: 12pt; font-family: &quot;New serif&quot;;"></span></p>
                                    </td>
                                    <td colspan="1" rowspan="1" width="312" style="border-top-width: 1pt; border-style: solid solid solid none; border-top-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; border-bottom-width: 1pt; border-bottom-color: windowtext; padding: 0cm 5.4pt; width: 395px;">
