@@ -4,8 +4,8 @@ source 'https://rubygems.org'
 
 git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
-gem 'glimmer-dsl-swt', '~> 0.6.3'
-gem 'glimmer-cw-cdatetime-nebula', '~> 1.4.0.1'
+gem 'glimmer-dsl-swt', '~> 4.17.2.0'
+gem 'glimmer-cw-cdatetime-nebula', '~> 1.5.0.0.0'
 gem 'activemodel', '~> 5.2.4.3', require: 'active_model'
 gem 'mail', '~> 2.7.1'
 gem 'email_validator', '~> 2.0.1'
@@ -17,4 +17,6 @@ group :development do
   gem 'git-glimmer', '1.7.0'
   gem 'jeweler', '2.3.9'
   gem 'simplecov', '>= 0'
+  gem 'warbler', '2.0.5'
+  gem 'glimmer-cs-gladiator'
 end

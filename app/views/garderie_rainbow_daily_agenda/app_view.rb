@@ -238,14 +238,13 @@ class GarderieRainbowDailyAgenda
                 }
                           
                 label # filler
-                          
+
                 # row
-                          
-                @new_drink_inputs[:milk_time] = c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::TIME_MEDIUM) { |proxy|
+
+                @new_drink_inputs[:milk_time] = c_time_drop_down { |proxy|
                   layout_data(:left, :center, false, false) {
                     width_hint 395
                   }
-                  pattern 'hh:mm a'
                   selection bind(self, 'child.new_drink.milk_time')                  
                   on_key_pressed { |event|
                     @new_drink_inputs[:fluid_amount].swt_widget.set_focus if event.keyCode == swt(:cr)
@@ -253,13 +252,14 @@ class GarderieRainbowDailyAgenda
                   
                   # Make c_date_time widgets open up when clicking inside the content not just the icon
                   # Added to make GUI more user-friendly as per usability testing with actual user
-                  Glimmer::SWT::WidgetProxy.new(swt_widget: proxy.text_widget.control).content {
+
+                  proxy.text_widget_proxy.content {
                      on_swt_mouseup { |event|
-                     	proxy.swt_widget.set_open(!proxy.swt_widget.is_open)                     	
+                     	 proxy.toggle_open
                      }
                   }
                 }
-                
+                  
                 @new_drink_inputs[:fluid_amount] = text {
                   layout_data(:left, :center, false, false) {
                     width_hint 393
@@ -290,7 +290,7 @@ class GarderieRainbowDailyAgenda
                                 
                 table_column {
                   width 400
-                  editor :c_date_time, CDT::BORDER | CDT::DROP_DOWN | CDT::TIME_MEDIUM, property: :milk_time
+                  editor :c_time_drop_down, property: :milk_time
                 }
                 table_column {
                   width 400
@@ -348,13 +348,13 @@ class GarderieRainbowDailyAgenda
                   text "Je me suis endormi à / I fell asleep at:"
                 }               
                         
-                c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::TIME_MEDIUM) { |proxy|
+                c_time_drop_down { |proxy|
                   selection bind(self, 'child.nap_time_start')
                   pattern 'hh:mm a'
                   
                   # Make c_date_time widgets open up when clicking inside the content not just the icon
                   # Added to make GUI more user-friendly as per usability testing with actual user
-                  Glimmer::SWT::WidgetProxy.new(swt_widget: proxy.text_widget.control).content {
+                  proxy.text_widget_proxy.content {
                      on_swt_mouseup { |event|
                      	proxy.swt_widget.set_open(!proxy.swt_widget.is_open)                     	
                      }
@@ -372,12 +372,12 @@ class GarderieRainbowDailyAgenda
                   text "Jusqu’à / Until:"
                 }
                 
-                c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::TIME_MEDIUM) { |proxy|
+                c_time_drop_down { |proxy|
                   selection bind(self, 'child.nap_time_end')
                   pattern 'hh:mm a'
                   
                   # added to make GUI more user-friendly as per usability testing with actual user
-                  Glimmer::SWT::WidgetProxy.new(swt_widget: proxy.text_widget.control).content {
+                  proxy.text_widget_proxy.content {
                      on_swt_mouseup { |event|
                      	proxy.swt_widget.set_open(!proxy.swt_widget.is_open)                     	
                      }
@@ -476,7 +476,7 @@ class GarderieRainbowDailyAgenda
                                           
                 # row
                                           
-                @new_potty_time_inputs[:change_time] = c_date_time(CDT::BORDER | CDT::DROP_DOWN | CDT::TIME_MEDIUM) { |proxy|
+                @new_potty_time_inputs[:change_time] = c_time_drop_down { |proxy|
                   layout_data(:left, :center, false, false) {
                     width_hint 155
                   }
@@ -487,7 +487,7 @@ class GarderieRainbowDailyAgenda
                   }      
                   
                   # added to make GUI more user-friendly as per usability testing with actual user
-                  Glimmer::SWT::WidgetProxy.new(swt_widget: proxy.text_widget.control).content {
+                  proxy.text_widget_proxy.content {
                      on_swt_mouseup { |event|
                      	proxy.swt_widget.set_open(!proxy.swt_widget.is_open)                     	
                      }
@@ -556,7 +556,7 @@ class GarderieRainbowDailyAgenda
                 
                 table_column {
                   width 160
-                  editor :c_date_time, CDT::BORDER | CDT::DROP_DOWN | CDT::TIME_MEDIUM, property: :change_time
+                  editor :c_time_drop_down, property: :change_time
                 }                                              
                 table_column {
                   width 160
