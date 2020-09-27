@@ -33,11 +33,6 @@ GEM
       activemodel (= 5.2.4.4)
       activesupport (= 5.2.4.4)
       arel (>= 9.0)
-    activerecord-jdbc-adapter (52.6-java)
-      activerecord (~> 5.2.0)
-    activerecord-jdbcsqlite3-adapter (52.6-java)
-      activerecord-jdbc-adapter (= 52.6)
-      jdbc-sqlite3 (~> 3.8, < 3.30)
     activestorage (5.2.4.4)
       actionpack (= 5.2.4.4)
       activerecord (= 5.2.4.4)
@@ -61,6 +56,7 @@ GEM
     crass (1.0.6)
     erubi (1.9.0)
     execjs (2.7.0)
+    ffi (1.13.1)
     ffi (1.13.1-java)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -68,7 +64,6 @@ GEM
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.1)
       activesupport (>= 5.0.0)
-    jdbc-sqlite3 (3.28.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -83,9 +78,14 @@ GEM
     method_source (1.0.0)
     mimemagic (0.3.5)
     mini_mime (1.0.2)
+    mini_portile2 (2.4.0)
     minitest (5.14.2)
+    nio4r (2.5.4)
     nio4r (2.5.4-java)
+    nokogiri (1.10.10)
+      mini_portile2 (~> 2.4.0)
     nokogiri (1.10.10-java)
+    puma (3.12.6)
     puma (3.12.6-java)
     rack (2.2.3)
     rack-test (1.1.0)
@@ -137,10 +137,12 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    sqlite3 (1.4.2)
     therubyrhino (2.1.2)
       therubyrhino_jar (>= 1.7.4, < 1.7.9)
     therubyrhino_jar (1.7.8)
     thor (1.0.1)
+    thread_safe (0.3.6)
     thread_safe (0.3.6-java)
     tilt (2.0.10)
     turbolinks (5.2.1)
@@ -157,21 +159,24 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
+    websocket-driver (0.7.3)
+      websocket-extensions (>= 0.1.0)
     websocket-driver (0.7.3-java)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
 
 PLATFORMS
   java
+  ruby
 
 DEPENDENCIES
-  activerecord-jdbcsqlite3-adapter
   coffee-rails (~> 4.2)
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   puma (~> 3.11)
   rails (~> 5.2.4, >= 5.2.4.4)
   sass-rails (~> 5.0)
+  sqlite3
   therubyrhino
   turbolinks (~> 5)
   tzinfo-data
