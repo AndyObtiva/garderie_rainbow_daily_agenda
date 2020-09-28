@@ -245,7 +245,7 @@ class GarderieRainbowDailyAgenda
                   layout_data(:left, :center, false, false) {
                     width_hint 395
                   }
-                  selection bind(self, 'child.new_drink.milk_time')                  
+                  selection bind(self, 'child.new_drink.milk_time_java')
                   on_key_pressed { |event|
                     @new_drink_inputs[:fluid_amount].swt_widget.set_focus if event.keyCode == swt(:cr)
                   }
@@ -349,7 +349,7 @@ class GarderieRainbowDailyAgenda
                 }               
                         
                 c_time_drop_down { |proxy|
-                  selection bind(self, 'child.nap_time_start')
+                  selection bind(self, 'child.nap_time_start_java')
                   pattern 'hh:mm a'
                   
                   # Make c_date_time widgets open up when clicking inside the content not just the icon
@@ -373,7 +373,7 @@ class GarderieRainbowDailyAgenda
                 }
                 
                 c_time_drop_down { |proxy|
-                  selection bind(self, 'child.nap_time_end')
+                  selection bind(self, 'child.nap_time_end_java')
                   pattern 'hh:mm a'
                   
                   # added to make GUI more user-friendly as per usability testing with actual user
@@ -481,7 +481,7 @@ class GarderieRainbowDailyAgenda
                     width_hint 155
                   }
                   pattern 'hh:mm a'
-                  selection bind(self, 'child.new_potty_time.change_time')
+                  selection bind(self, 'child.new_potty_time.change_time_java')
                   on_key_pressed { |event|
                     @new_potty_time_inputs[:wet].swt_widget.set_focus if event.keyCode == swt(:cr)
                   }      
@@ -817,6 +817,17 @@ class GarderieRainbowDailyAgenda
     end
     
     def send_email
+      pd RubySerial.dump(@child)
+      uri = URI('http://localhost:3000/child_reports.json')
+      res = Net::HTTP.post_form(uri, 'child_report' => RubySerial.dump(@child))
+      async_exec {
+        message_box {
+          text 'Child Report Submitted!'
+          message res.message
+        }.open
+      }
+      return
+      
       validate
       return unless @child.valid?
       

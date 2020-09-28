@@ -1,0 +1,2 @@
+class GarderieRainbowDailyAgenda
+end

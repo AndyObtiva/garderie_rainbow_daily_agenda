@@ -1,8 +1,11 @@
 class GarderieRainbowDailyAgenda    
-  class Drink < Struct.new(:milk_time, :fluid_amount, 
-                            keyword_init: true)                            
+  class Drink                            
     include ActiveModel::Model
     include Glimmer
+    
+    ATTRIBUTES = [ :milk_time, :fluid_amount ]
+    attr_accessor :milk_time_java, *ATTRIBUTES
+    rubyserial_only *ATTRIBUTES
     
     validates :milk_time, presence: true
     validates :fluid_amount, presence: true
@@ -14,8 +17,11 @@ class GarderieRainbowDailyAgenda
     end
     
     def milk_time_string
-      return if milk_time.nil?
-      Time.at(milk_time.time / 1000.0).strftime('%I:%M %p')      
+      milk_time&.strftime('%I:%M %p')
+    end
+    
+    def milk_time
+      Time.at(milk_time_java.time / 1000.0) unless milk_time_java.nil?
     end    
   end
 end
