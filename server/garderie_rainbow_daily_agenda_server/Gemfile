@@ -34,6 +34,8 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'puts_debuggerer'
 gem 'ruby-serial'
+gem 'mail', '~> 2.7.1'
+gem 'email_validator', '~> 2.0.1'
 
 
 group :development do

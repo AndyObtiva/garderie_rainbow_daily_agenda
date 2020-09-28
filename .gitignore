@@ -63,4 +63,5 @@ vendor/
 config/email_service.yml
 config/email_service_unencrypted.yml
 config/.rsa
+server/garderie_rainbow_daily_agenda_server/config/.rsa
 .sqlite3

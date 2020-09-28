@@ -21,8 +21,8 @@ class GarderieRainbowDailyAgenda
       :special_notes,
       :educator_name,
       :email,
-      :new_drink, 
-      :new_potty_time,
+      :drinks, 
+      :potty_times,
       :meals,
       :mood
     ]

@@ -1,7 +1,9 @@
 class GarderieRainbowDailyAgenda
-  class PottyTime < Struct.new(:change_time, :wet, :bm, :diaper, :toilet,
-                                keyword_init: true)
+  class PottyTime
     attr_accessor :change_time, :wet, :bm, :diaper, :toilet    
-  end
-  
+    
+    def change_time_string
+      change_time&.strftime('%I:%M %p')      
+    end
+  end      
 end

@@ -1,6 +1,6 @@
 class GarderieRainbowDailyAgenda
   class Child
-  
+   
     attr_accessor :name, 
                   :nap_time_start, 
                   :nap_time_end,
@@ -13,11 +13,17 @@ class GarderieRainbowDailyAgenda
                   :special_notes,
                   :educator_name,
                   :email,
-                  :new_drink, 
-                  :new_potty_time,
+                  :drinks, 
+                  :potty_times,
                   :meals,
                   :mood
-                        
-
+                         
+    def nap_time_start_string
+      nap_time_start&.strftime('%I:%M %p')      
+    end
+    def nap_time_end_string
+      nap_time_end&.strftime('%I:%M %p')      
+    end        
+ 
   end
 end

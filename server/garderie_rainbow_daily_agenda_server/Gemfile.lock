@@ -55,6 +55,8 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.7)
     crass (1.0.6)
+    email_validator (2.0.1)
+      activemodel
     erubi (1.9.0)
     execjs (2.7.0)
     ffi (1.13.1)
@@ -178,8 +180,10 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 4.2)
+  email_validator (~> 2.0.1)
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
+  mail (~> 2.7.1)
   puma (~> 3.11)
   puts_debuggerer
   rails (~> 5.2.4, >= 5.2.4.4)

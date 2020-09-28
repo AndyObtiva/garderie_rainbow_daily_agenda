@@ -1,6 +1,5 @@
 class GarderieRainbowDailyAgenda
-  class Mood < Struct.new(:very_happy, :happy, :unsure, :sad, 
-                    keyword_init: true)
+  class Mood
     attr_accessor :very_happy, :happy, :unsure, :sad
   end
 end

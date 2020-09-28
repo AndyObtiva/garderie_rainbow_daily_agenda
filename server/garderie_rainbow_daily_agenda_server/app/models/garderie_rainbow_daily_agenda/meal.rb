@@ -1,6 +1,5 @@
 class GarderieRainbowDailyAgenda
-  class Meal < Struct.new(:type, :a_bit, :one_serving, :two_servings, 
-                    keyword_init: true)
+  class Meal
     attr_accessor :type, :a_bit, :one_serving, :two_servings
   end
 end
