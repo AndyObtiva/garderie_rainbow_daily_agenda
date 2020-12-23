@@ -3,6 +3,6 @@ class GarderieRainbowDailyAgenda
                     keyword_init: true)
     ATTRIBUTES = [ :very_happy, :happy, :unsure, :sad ]
     attr_accessor *ATTRIBUTES
-    rubyserial_only *ATTRIBUTES
+#     rubyserial_only *ATTRIBUTES
   end
 end

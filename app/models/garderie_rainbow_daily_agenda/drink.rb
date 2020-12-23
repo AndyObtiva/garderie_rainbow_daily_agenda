@@ -1,14 +1,14 @@
 class GarderieRainbowDailyAgenda    
   class Drink                            
-    include ActiveModel::Model
+#     include ActiveModel::Model
     include Glimmer
     
     ATTRIBUTES = [ :milk_time, :fluid_amount ]
     attr_accessor :milk_time_java, *ATTRIBUTES
-    rubyserial_only *ATTRIBUTES
+#     rubyserial_only *ATTRIBUTES
     
-    validates :milk_time, presence: true
-    validates :fluid_amount, presence: true
+#     validates :milk_time, presence: true
+#     validates :fluid_amount, presence: true
     
     def initialize
       observe(self, :milk_time) do |new_value|

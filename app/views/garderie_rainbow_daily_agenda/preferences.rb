@@ -24,7 +24,7 @@ class GarderieRainbowDailyAgenda
     ## Use after_body block to setup observers for widgets in body
     #
     # after_body {
-    # 
+    #
     # }
 
     ## Add widget content inside custom shell body
@@ -54,9 +54,9 @@ class GarderieRainbowDailyAgenda
           text 'Email Settings'
           
           @labels[:address] = label {
-            text 'SMTP Server Address:'            
+            text 'SMTP Server Address:'
             font height: 16
-          }          
+          }
           @inputs[:address] = text {
             layout_data(:fill, :top, true, false) {
               width_hint 180
@@ -65,14 +65,14 @@ class GarderieRainbowDailyAgenda
             text bind(@email_service, :address)
             on_key_pressed { |event|
               @inputs[:port].set_focus if event.keyCode == swt(:cr)
-            }                               
+            }
           }
           label # filler
                     
           @labels[:port] = label {
             text 'Port:'
             font height: 16
-          }          
+          }
           @inputs[:port] = text {
             layout_data(:fill, :top, true, false)
             font height: 16
@@ -82,8 +82,8 @@ class GarderieRainbowDailyAgenda
             }
             on_key_pressed { |event|
               @inputs[:authentication].set_focus if event.keyCode == swt(:cr)
-            }                               
-          }                    
+            }
+          }
           checkbox {
             layout_data(:left, :top, false, false)
             text 'SSL?'
@@ -91,76 +91,76 @@ class GarderieRainbowDailyAgenda
             selection bind(@email_service, :use_ssl)
             on_key_pressed { |event|
               @inputs[:authentication].set_focus if event.keyCode == swt(:cr)
-            }                               
+            }
           }
                     
           @labels[:authentication] = label {
             text 'Authentication Protocol:'
             font height: 16
-          }          
+          }
           @inputs[:authentication] = text {
             layout_data(:fill, :top, true, false)
             font height: 16
             text bind(@email_service, :authentication)
             on_key_pressed { |event|
               @inputs[:username].set_focus if event.keyCode == swt(:cr)
-            }                               
+            }
           }
           label # filler
                     
           @labels[:username] = label {
             text 'Username/Email:'
             font height: 16
-          }          
+          }
           @inputs[:username] = text {
             layout_data(:fill, :top, true, false)
             font height: 16
             text bind(@email_service, :username)
             on_key_pressed { |event|
               @inputs[:password].set_focus if event.keyCode == swt(:cr)
-            }                               
+            }
           }
           label # filler
                     
           @labels[:password] = label {
             text 'Password:'
             font height: 16
-          }          
+          }
           @inputs[:password] = text(:password, :border) {
             layout_data(:fill, :top, true, false)
             font height: 16
             text bind(@email_service, :password)
             on_key_pressed { |event|
               @inputs[:from_email].set_focus if event.keyCode == swt(:cr)
-            }                               
+            }
           }
           label # filler
           
           @labels[:from_email] = label {
             text 'From Email Address:'
             font height: 16
-          }          
+          }
           @inputs[:from_email] = text {
             layout_data(:fill, :top, true, false)
             font height: 16
             text bind(@email_service, :from_email)
             on_key_pressed { |event|
               @inputs[:from_name].set_focus if event.keyCode == swt(:cr)
-            }                               
+            }
           }
           label # filler
           
           @labels[:from_name] = label {
             text 'From Name:'
             font height: 16
-          }          
+          }
           @inputs[:from_name] = text {
             layout_data(:fill, :top, true, false)
             font height: 16
             text bind(@email_service, :from_name)
             on_key_pressed { |event|
               save if event.keyCode == swt(:cr)
-            }                               
+            }
           }
           label # filler
           
@@ -176,14 +176,14 @@ class GarderieRainbowDailyAgenda
             
             layout_data(:fill, :top, true, false) {
               horizontal_span 3
-            }            
+            }
             
             button {
               text '&Save'
               font height: 14
               on_key_pressed { |event|
                 save if event.keyCode == swt(:cr)
-              }                               
+              }
               on_widget_selected {
                 save
               }
@@ -194,24 +194,24 @@ class GarderieRainbowDailyAgenda
               font height: 14
               on_key_pressed { |event|
                 reset if event.keyCode == swt(:cr)
-              }                               
+              }
               on_widget_selected {
                 reset
               }
-            }            
+            }
             
             button {
               text '&Cancel'
               font height: 14
               on_key_pressed { |event|
                 cancel if event.keyCode == swt(:cr)
-              }                               
+              }
               on_widget_selected {
                 cancel
               }
-            }            
+            }
           }
-        }                
+        }
         
       }
     }
@@ -233,14 +233,14 @@ class GarderieRainbowDailyAgenda
     
     def validate
       unless @email_service.valid?
-        @inputs[@email_service.errors.keys.first].swt_widget.set_focus
+        @inputs[@email_service.errors.keys.first].set_focus
       end
       @labels.each do |attribute, label|
         label.content {
           foreground @email_service.errors.keys.include?(attribute) ? :red : :black
           tool_tip_text @email_service.errors.keys.include?(attribute) ? @email_service.errors[attribute].first : nil
         }
-      end    
+      end
     end
     
     def save

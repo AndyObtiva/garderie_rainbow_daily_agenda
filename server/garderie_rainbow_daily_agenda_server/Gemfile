@@ -32,11 +32,18 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'puts_debuggerer'
 gem 'ruby-serial'
 gem 'mail', '~> 2.7.1'
 gem 'email_validator', '~> 2.0.1'
-
+gem 'opal-rails', '~> 1.1.2'
+gem 'opal-async', '~> 1.2.0', path: '../../../opal-async'
+gem 'opal-jquery', '~> 0.4.4'
+gem 'glimmer-dsl-opal', '~> 0.9.1', path: '../../../glimmer-dsl-opal'
+gem 'glimmer-dsl-xml', '~> 1.1.0', require: false
+gem 'glimmer-dsl-css', '~> 1.1.0', require: false
+gem 'garderie_rainbow_daily_agenda', require: false, path: '../../../garderie_rainbow_daily_agenda'
+gem 'glimmer-cw-cdatetime-nebula', '~> 1.5.0.3.0' #, path: '../../../glimmer-cw-cdatetime-nebula'
+gem 'puts_debuggerer'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.

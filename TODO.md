@@ -8,3 +8,4 @@ Add here enhancement ideas, feature suggestions, and discovered issues.
 - Add Preferences Tab for remembered Kid's names/emails
 - Break steps down into a wizard to avoid the need for scrolling
 - Write an architecture/design document
+- Make file mentions a link you can click that takes you to the code on GitHub (or whatever the remove repo is)

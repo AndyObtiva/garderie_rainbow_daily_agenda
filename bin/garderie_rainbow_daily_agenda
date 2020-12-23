@@ -1,7 +1,7 @@
 require_relative '../app/views/garderie_rainbow_daily_agenda/splash'
 
 Thread.new do
-  begin    
+  begin
       require_relative '../app/garderie_rainbow_daily_agenda'
       
       GarderieRainbowDailyAgenda.new.open

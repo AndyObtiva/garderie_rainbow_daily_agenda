@@ -1,9 +1,13 @@
+pd 'test'
+pd 'models/garderie_rainbow_daily_agenda/child'
 require 'models/garderie_rainbow_daily_agenda/child'
+pd 'models/garderie_rainbow_daily_agenda/drink'
 require 'models/garderie_rainbow_daily_agenda/drink'
-require 'models/garderie_rainbow_daily_agenda/email_message'
-require 'services/garderie_rainbow_daily_agenda/email_service'
+# require 'models/garderie_rainbow_daily_agenda/email_message'
+# require 'services/garderie_rainbow_daily_agenda/email_service'
+pd 'views/garderie_rainbow_daily_agenda/meal_serving_radio_group'
 require 'views/garderie_rainbow_daily_agenda/meal_serving_radio_group'
-require 'views/garderie_rainbow_daily_agenda/preferences'
+# require 'views/garderie_rainbow_daily_agenda/preferences'
 
 class GarderieRainbowDailyAgenda
   class AppView
@@ -14,7 +18,7 @@ class GarderieRainbowDailyAgenda
     # options :title, :background_color
     # option :width, default: 320
     # option :height, default: 240
-    option :greeting, default: 'Hello, World!'
+    # option :greeting, default: 'Hello, World!'
 
     attr_accessor :child
 
@@ -22,28 +26,29 @@ class GarderieRainbowDailyAgenda
     #
     #
     before_body {
-      Display.setAppName('Garderie Rainbow Daily Agenda')
-      Display.setAppVersion(VERSION)
-      @display = display {
-        on_about {
-          display_about_dialog
-        }
-        on_preferences {
-          preferences.open
-        }
-        on_swt_keyup { |event|
-          event.widget.shell.close if event.keyCode == swt(:esc) && event.widget.shell.get_data('proxy').has_style?(:dialog_trim)
-        }
-      }
-      @image_baby_milk_bottle = image(File.join(APP_ROOT, 'images', 'baby_milk_bottle.png'))
-      @image_milk_glass = image(File.join(APP_ROOT, 'images', 'milk_glass.png'))
-      @image_sleeping_baby = image(File.join(APP_ROOT, 'images', 'sleeping_baby.png'))
-      @image_diaper = image(File.join(APP_ROOT, 'images', 'diaper.png'))
-      @image_doll_on_toilet = image(File.join(APP_ROOT, 'images', 'doll_on_toilet.gif'))
-      @image_smilie_big_smile = image(File.join(APP_ROOT, 'images', 'smilie_big_smile.gif'))
-      @image_smilie_smile = image(File.join(APP_ROOT, 'images', 'smilie_smile.gif'))
-      @image_smilie_unsure = image(File.join(APP_ROOT, 'images', 'smilie_unsure.png'))
-      @image_smilie_sad = image(File.join(APP_ROOT, 'images', 'smilie_sad.png'))
+      # TODO implement in opal as a class method on DislpayProxy or something
+#       Display.setAppName('Garderie Rainbow Daily Agenda')
+#       Display.setAppVersion(VERSION)
+#       @display = display {
+#         on_about {
+#           display_about_dialog
+#         }
+#         on_preferences {
+#           preferences.open
+#         }
+#         on_swt_keyup { |event|
+#           event.widget.shell.close if event.keyCode == swt(:esc) && event.widget.shell.get_data('proxy').has_style?(:dialog_trim)
+#         }
+#       }
+#       @image_baby_milk_bottle = image(File.join(APP_ROOT, 'images', 'baby_milk_bottle.png'))
+#       @image_milk_glass = image(File.join(APP_ROOT, 'images', 'milk_glass.png'))
+#       @image_sleeping_baby = image(File.join(APP_ROOT, 'images', 'sleeping_baby.png'))
+#       @image_diaper = image(File.join(APP_ROOT, 'images', 'diaper.png'))
+#       @image_doll_on_toilet = image(File.join(APP_ROOT, 'images', 'doll_on_toilet.gif'))
+#       @image_smilie_big_smile = image(File.join(APP_ROOT, 'images', 'smilie_big_smile.gif'))
+#       @image_smilie_smile = image(File.join(APP_ROOT, 'images', 'smilie_smile.gif'))
+#       @image_smilie_unsure = image(File.join(APP_ROOT, 'images', 'smilie_unsure.png'))
+#       @image_smilie_sad = image(File.join(APP_ROOT, 'images', 'smilie_sad.png'))
       @child = Child.new
       @meal_serving_radio_groups = {}
       @new_drink_labels = {}
@@ -53,42 +58,46 @@ class GarderieRainbowDailyAgenda
       @required_labels = {}
       @required_inputs = {}
       
-      @email_service = EmailService.instance
+#       @email_service = EmailService.instance
     }
 
     ## Use after_body block to setup observers for widgets in body
     #
     # after_body {
-    # 
+    #
     # }
 
     ## Add widget content inside custom shell body
     ## Top-most widget must be a shell or another custom shell
     #
+    pd 'body'
     body {
+      
       shell {
+        pd 'rendering shell'
         minimum_size 800, 600
         image File.join(APP_ROOT, 'package', 'windows', "Garderie Rainbow Daily Agenda.ico") if OS.windows?
         text "Garderie Rainbow Daily Agenda"
         
-        menu_bar {
-          menu {
-            text '&File'
-            menu_item {
-              text '&Preferences...'
-              on_widget_selected {
-                preferences.open
-              }
-            }
-          }
-        }
+#         menu_bar {
+#           menu {
+#             text '&File'
+#             menu_item {
+#               text '&Preferences...'
+#               on_widget_selected {
+#                 preferences.open
+#               }
+#             }
+#           }
+#         }
         
+        pd 'rendering scrolled_composite'
         scrolled_composite {
           
-          composite {                        
+          composite {
             # top header
             
-            label {
+            label(:center) {
               layout_data(:center, :center, false, false)
               font height: 24
               text 'Garderie Rainbow'
@@ -98,8 +107,9 @@ class GarderieRainbowDailyAgenda
                 width_hint 212
                 height_hint 100
               }
-              background_image File.join(APP_ROOT, 'images', 'garderie_rainbow_daily_agenda_logo.png')
+#               background_image File.join(APP_ROOT, 'images', 'garderie_rainbow_daily_agenda_logo.png')
             }
+            pd 'rendering daily agenda'
             label {
               layout_data(:center, :center, false, false)
               font height: 24
@@ -161,7 +171,6 @@ class GarderieRainbowDailyAgenda
               }
               
               #TODO extract the following into a custom widget
-            
               @meal_serving_radio_groups[:breakfast] = meal_serving_radio_group(meal: @child.meals[:breakfast])
               
               # row
@@ -178,7 +187,7 @@ class GarderieRainbowDailyAgenda
               label {
                 text "Collation d’aprés midi/PM Snack 🍎🍐🍌🍉"
                 font height: 16
-              }          
+              }
               
               @meal_serving_radio_groups[:pm_snack] = meal_serving_radio_group(meal: @child.meals[:pm_snack])
             }
@@ -201,10 +210,10 @@ class GarderieRainbowDailyAgenda
                   margin_height 0
                 }
                 
-                layout_data(:fill, :top, true, false) 
+                layout_data(:fill, :top, true, false)
                         
                 # row
-
+                pd 'rendering drinks'
                 composite {
                   grid_layout(3, false) {
                     margin_width 0
@@ -214,11 +223,11 @@ class GarderieRainbowDailyAgenda
                     width_hint 395
                   }
                   label {
-                    image @image_baby_milk_bottle.scale_to(48, 48)
+#                     image @image_baby_milk_bottle.scale_to(48, 48)
                   }
                   label {
-                    image @image_milk_glass.scale_to(48, 48)
-                  }                
+#                     image @image_milk_glass.scale_to(48, 48)
+                  }
                   @new_drink_labels[:milk_time] = label {
                     layout_data(:left, :bottom, false, false)
                     font height: 16, style: :bold
@@ -236,7 +245,7 @@ class GarderieRainbowDailyAgenda
                   text "Combien de fluide/How much fluid"
                   foreground rgb(98, 174, 88)
                 }
-                          
+
                 label # filler
 
                 # row
@@ -245,19 +254,19 @@ class GarderieRainbowDailyAgenda
                   layout_data(:left, :center, false, false) {
                     width_hint 395
                   }
-                  selection bind(self, 'child.new_drink.milk_time_java')
-                  on_key_pressed { |event|
-                    @new_drink_inputs[:fluid_amount].swt_widget.set_focus if event.keyCode == swt(:cr)
-                  }
+#                   selection bind(self, 'child.new_drink.milk_time_java')
+#                   on_key_pressed { |event|
+#                     @new_drink_inputs[:fluid_amount].set_focus if event.keyCode == swt(:cr)
+#                   }
                   
                   # Make c_date_time widgets open up when clicking inside the content not just the icon
                   # Added to make GUI more user-friendly as per usability testing with actual user
 
-                  proxy.text_widget_proxy.content {
-                     on_swt_mouseup { |event|
-                     	 proxy.toggle_open
-                     }
-                  }
+#                   proxy.text_widget_proxy.content {
+#                      on_swt_mouseup { |event|
+#                         proxy.toggle_open
+#                      }
+#                   }
                 }
                   
                 @new_drink_inputs[:fluid_amount] = text {
@@ -267,49 +276,50 @@ class GarderieRainbowDailyAgenda
                   text bind(self, 'child.new_drink.fluid_amount')
                   on_key_pressed { |event|
                     add_drink if event.keyCode == swt(:cr)
-                  }                               
+                  }
                 }
                 
-                @new_drink_add_button = button {                  
+                @new_drink_add_button = button {
                   text '&Add'
                   on_key_pressed { |event|
                     add_drink if event.keyCode == swt(:cr)
-                  }                               
+                  }
                   on_widget_selected {
                     add_drink
-                  }                
-                }                                
+                  }
+                }
                       
               }
               
               @drink_table = table(:multi) { |table_proxy|
                 layout_data(:fill, :center, true, false)
                 font height: 16
-                item_count 3                
-                header_visible false
+#                 item_count 3
+#                 header_visible false
                                 
                 table_column {
                   width 400
-                  editor :c_time_drop_down, property: :milk_time
+#                  editor :c_time_drop_down, property: :milk_time
                 }
                 table_column {
                   width 400
                 }
                             
-                items bind(self, 'child.drinks'), column_properties(:milk_time_string, :fluid_amount)
+#                 items bind(self, 'child.drinks'), column_properties(:milk_time_string, :fluid_amount) #TODO use this eventually
+                items bind(child, 'drinks'), column_properties(:milk_time_string, :fluid_amount)
                             
                 on_mouse_up { |event|
                   table_proxy.edit_table_item(event.table_item, event.column_index)
                 }
                         
-                menu {
-                  menu_item {
-                    text "Remove"
-                    on_widget_selected { |event|
-                      @child.remove_drinks(@drink_table.swt_widget.selection.map(&:data))                      
-                    }
-                  }
-                }                                    
+#                menu {
+#                  menu_item {
+#                    text "Remove"
+#                    on_widget_selected { |event|
+#                      @child.remove_drinks(@drink_table.selection.map(&:data))
+#                    }
+#                  }
+#                }
               }
             
             }
@@ -321,7 +331,7 @@ class GarderieRainbowDailyAgenda
               }
               layout_data(:left, :center, false, false)
               
-              label {         
+              label {
                 layout_data(:left, :center, false, false)
                 font height: 18, style: :bold
                 text "Sieste/Naptime:"
@@ -330,7 +340,7 @@ class GarderieRainbowDailyAgenda
               
               label {
                 layout_data(:left, :center, false, false)
-                image @image_sleeping_baby.scale_to(75, 75)
+#                 image @image_sleeping_baby.scale_to(75, 75)
               }
             }
             
@@ -342,23 +352,23 @@ class GarderieRainbowDailyAgenda
                   pack true
                 }
                 
-                label {     
-                  layout_data(:left, :center, false, false)    
+                label {
+                  layout_data(:left, :center, false, false)
                   font height: 16
                   text "Je me suis endormi à / I fell asleep at:"
-                }               
+                }
                         
                 c_time_drop_down { |proxy|
-                  selection bind(self, 'child.nap_time_start_java')
-                  pattern 'hh:mm a'
+#                   selection bind(self, 'child.nap_time_start_java')
+#                   pattern 'hh:mm a'
                   
                   # Make c_date_time widgets open up when clicking inside the content not just the icon
                   # Added to make GUI more user-friendly as per usability testing with actual user
-                  proxy.text_widget_proxy.content {
-                     on_swt_mouseup { |event|
-                     	proxy.swt_widget.set_open(!proxy.swt_widget.is_open)                     	
-                     }
-                  }
+#                   proxy.text_widget_proxy.content {
+#                      on_swt_mouseup { |event|
+#                        proxy.set_open(!proxy.is_open)
+#                      }
+#                   }
                 }
               }
             
@@ -367,21 +377,21 @@ class GarderieRainbowDailyAgenda
                   pack true
                 }
                 
-                label {         
+                label {
                   font height: 16
                   text "Jusqu’à / Until:"
                 }
                 
                 c_time_drop_down { |proxy|
-                  selection bind(self, 'child.nap_time_end_java')
-                  pattern 'hh:mm a'
+#                   selection bind(self, 'child.nap_time_end_java')
+#                   pattern 'hh:mm a'
                   
                   # added to make GUI more user-friendly as per usability testing with actual user
-                  proxy.text_widget_proxy.content {
-                     on_swt_mouseup { |event|
-                     	proxy.swt_widget.set_open(!proxy.swt_widget.is_open)                     	
-                     }
-                  }
+#                   proxy.text_widget_proxy.content {
+#                      on_swt_mouseup { |event|
+#                        proxy.set_open(!proxy.is_open)
+#                      }
+#                   }
                 }
               }
               
@@ -403,9 +413,9 @@ class GarderieRainbowDailyAgenda
                 grid_layout(6, false) {
                   margin_width 0
                   margin_height 0
-                }                
+                }
                 
-                layout_data(:fill, :top, true, false) 
+                layout_data(:fill, :top, true, false)
                         
                 # row
                 
@@ -439,92 +449,99 @@ class GarderieRainbowDailyAgenda
                 composite {
                   row_layout {
                     margin_width 0
-                    margin_height 0                  
+                    margin_height 0
                   }
                   layout_data(:left, :bottom, false, false) {
                     width_hint 151
                   }
                   label {
-                    image @image_diaper.scale_to(80, 80)
+#                     image @image_diaper.scale_to(80, 80)
                   }
                   @new_potty_time_labels[:diaper] = label {
                     font height: 16, style: :bold
                     text "Couche/Diaper"
                     foreground rgb(98, 174, 88)
-                  }                            
-                } 
+                  }
+                }
                 
                 composite {
                   row_layout {
                     margin_width 0
-                    margin_height 0                  
+                    margin_height 0
                   }
                   layout_data(:left, :bottom, false, false) {
                     width_hint 151
                   }
                   label {
-                    image @image_doll_on_toilet.scale_to(80, 80)
+#                     image @image_doll_on_toilet.scale_to(80, 80)
                   }
                   @new_potty_time_labels[:toilet] = label {
                     font height: 16, style: :bold
                     text "Toilette/Toilet"
                     foreground rgb(98, 174, 88)
                   }
-                } 
+                }
                                           
                 label # filler
                                           
                 # row
-                                          
+                pd 'rendering potty times'
                 @new_potty_time_inputs[:change_time] = c_time_drop_down { |proxy|
                   layout_data(:left, :center, false, false) {
                     width_hint 155
                   }
-                  pattern 'hh:mm a'
-                  selection bind(self, 'child.new_potty_time.change_time_java')
-                  on_key_pressed { |event|
-                    @new_potty_time_inputs[:wet].swt_widget.set_focus if event.keyCode == swt(:cr)
-                  }      
+#                   pattern 'hh:mm a'
+#                   selection bind(self, 'child.new_potty_time.change_time_java')
+#                   on_key_pressed { |event|
+#                     @new_potty_time_inputs[:wet].set_focus if event.keyCode == swt(:cr)
+#                   }
                   
                   # added to make GUI more user-friendly as per usability testing with actual user
-                  proxy.text_widget_proxy.content {
-                     on_swt_mouseup { |event|
-                     	proxy.swt_widget.set_open(!proxy.swt_widget.is_open)                     	
-                     }
-                  }
+#                   proxy.text_widget_proxy.content {
+#                      on_swt_mouseup { |event|
+#                        proxy.set_open(!proxy.is_open)
+#                      }
+#                   }
                                                                     
                 }
                 
+                pd 'rendering wet checkbox'
                 @new_potty_time_inputs[:wet] = checkbox {
+                   pd 'layout data'
                   layout_data(:left, :center, false, false) {
                     width_hint 153
                   }
+                   pd 'selection bind'
                   selection bind(self, 'child.new_potty_time.wet')
+                   pd 'selection bind'
                   on_key_pressed { |event|
-                    @new_potty_time_inputs[:bm].swt_widget.set_focus if event.keyCode == swt(:cr)
-                  }                               
+                    @new_potty_time_inputs[:bm].set_focus if event.keyCode == swt(:cr)
+                  }
                 }
                 
+                pd 'rendering bm checkbox'
                 @new_potty_time_inputs[:bm] = checkbox {
                   layout_data(:left, :center, false, false) {
                     width_hint 151
                   }
                   selection bind(self, 'child.new_potty_time.bm')
                   on_key_pressed { |event|
-                    @new_potty_time_inputs[:diaper].swt_widget.set_focus if event.keyCode == swt(:cr)
-                  }                               
+                    @new_potty_time_inputs[:diaper].set_focus if event.keyCode == swt(:cr)
+                  }
                 }
                 
+                pd 'rendering diaper checkbox'
                 @new_potty_time_inputs[:diaper] = checkbox {
                   layout_data(:left, :center, false, false) {
                     width_hint 151
                   }
                   selection bind(self, 'child.new_potty_time.diaper')
                   on_key_pressed { |event|
-                    @new_potty_time_inputs[:toilet].swt_widget.set_focus if event.keyCode == swt(:cr)
-                  }                               
+                    @new_potty_time_inputs[:toilet].set_focus if event.keyCode == swt(:cr)
+                  }
                 }
                 
+                pd 'rendering toilet checkbox'
                 @new_potty_time_inputs[:toilet] = checkbox {
                   layout_data(:left, :center, false, false) {
                     width_hint 151
@@ -532,71 +549,72 @@ class GarderieRainbowDailyAgenda
                   selection bind(self, 'child.new_potty_time.toilet')
                   on_key_pressed { |event|
                     add_potty_time if event.keyCode == swt(:cr)
-                  }                               
+                  }
                 }
               
                 button {
                   text 'Ad&d'
                   on_key_pressed { |event|
                     add_potty_time if event.keyCode == swt(:cr)
-                  }                               
+                  }
                   on_widget_selected {
                     add_potty_time
-                  }                
+                  }
                 }
       
               }
               
               
+              pd 'rendering potty time table'
               @potty_time_table = table(:multi) { |table_proxy|
                 layout_data(:fill, :center, true, false)
                 font height: 16
-                item_count 3
-                header_visible false
+#                 item_count 3
+#                 header_visible false
                 
                 table_column {
                   width 160
-                  editor :c_time_drop_down, property: :change_time
-                }                                              
-                table_column {
-                  width 160
-                  editor :checkbox, property: :wet
-                }                            
-                table_column {
-                  width 160
-                  editor :checkbox, property: :bm
+#                   editor :c_time_drop_down, property: :change_time
                 }
                 table_column {
                   width 160
-                  editor :checkbox, property: :diaper
-                }                            
+#                   editor :checkbox, property: :wet
+                }
                 table_column {
                   width 160
-                  editor :checkbox, property: :toilet
+#                   editor :checkbox, property: :bm
+                }
+                table_column {
+                  width 160
+#                   editor :checkbox, property: :diaper
+                }
+                table_column {
+                  width 160
+#                   editor :checkbox, property: :toilet
                 }
                  
-                items bind(self, 'child.potty_times'), column_properties(:change_time_string, :wet_string, :bm_string, :diaper_string, :toilet_string)
+#                 items bind(self, 'child.potty_times'), column_properties(:change_time_string, :wet_string, :bm_string, :diaper_string, :toilet_string)
                  
-                on_mouse_up { |event|
-                  table_proxy.edit_table_item(event.table_item, event.column_index)
-                }  
+#                 on_mouse_up { |event|
+#                   table_proxy.edit_table_item(event.table_item, event.column_index)
+#                 }
               
-                menu {
-                  menu_item {
-                    text "Remove"
-                    on_widget_selected { |event|
-                      @child.remove_potty_times(@potty_time_table.swt_widget.selection.map(&:data))                      
-                    }
-                  }
-                }                                    
+#                 menu {
+#                   menu_item {
+#                     text "Remove"
+#                     on_widget_selected { |event|
+#                       @child.remove_potty_times(@potty_time_table.selection.map(&:data))
+#                     }
+#                   }
+#                 }
                       
               }
             
-            }   
-            
+            }
+            pd 'render composite'
             composite {
               
-              label {         
+              label {
                 font height: 18, style: :bold
                 text "Mon humeur était / My mood was:"
                 foreground rgb(99, 175, 237)
@@ -606,19 +624,19 @@ class GarderieRainbowDailyAgenda
               group {
                 row_layout
                 radio {
-                  image @image_smilie_big_smile.scale_to(64, 64)
-                  selection bind(self, 'child.mood.very_happy')         
+#                   image @image_smilie_big_smile.scale_to(64, 64)
+                  selection bind(self, 'child.mood.very_happy')
                 }
                 radio {
-                  image @image_smilie_smile.scale_to(64, 64)
+#                   image @image_smilie_smile.scale_to(64, 64)
                   selection bind(self, 'child.mood.happy')
                 }
                 radio {
-                  image @image_smilie_unsure.scale_to(64, 64)
+#                   image @image_smilie_unsure.scale_to(64, 64)
                   selection bind(self, 'child.mood.unsure')
                 }
                 radio {
-                  image @image_smilie_sad.scale_to(64, 64)
+#                   image @image_smilie_sad.scale_to(64, 64)
                   selection bind(self, 'child.mood.sad')
                 }
               }
@@ -627,11 +645,11 @@ class GarderieRainbowDailyAgenda
             composite {
               layout_data(:fill, :center, true, false)
               
-              label {         
+              label {
                 font height: 18, style: :bold
                 text "S'il vous plaît amenez/Please bring:"
                 foreground rgb(223, 90, 243)
-              }              
+              }
               
               checkbox {
                 font height: 18, style: :bold
@@ -707,13 +725,13 @@ class GarderieRainbowDailyAgenda
                 event.widget.select_all
               }
             }
-            
+            pd 'rendering have a nice day'
             label {
               layout_data(:left, :center, false, false)
               font height: 18, style: :bold
               text "HAVE A NICE DAY 🤗"
               foreground rgb(239, 190, 45)
-            }   
+            }
             
             @required_labels[:email] = label {
               layout_data(:left, :center, false, false)
@@ -729,7 +747,7 @@ class GarderieRainbowDailyAgenda
               }
               on_key_pressed { |event|
                 send_email if event.keyCode == swt(:cr)
-              }                               
+              }
             }
             composite {
               row_layout {
@@ -738,7 +756,7 @@ class GarderieRainbowDailyAgenda
                 margin_left 0
                 margin_right 0
                 margin_top 15
-                margin_bottom 0                          
+                margin_bottom 0
               }
               layout_data(:left, :center, false, false)
               button {
@@ -746,7 +764,7 @@ class GarderieRainbowDailyAgenda
                 font height: 14
                 on_key_pressed { |event|
                   send_email if event.keyCode == swt(:cr)
-                }                               
+                }
                 on_widget_selected {
                   send_email
                 }
@@ -756,7 +774,7 @@ class GarderieRainbowDailyAgenda
                 font height: 14
                 on_key_pressed { |event|
                   reset if event.keyCode == swt(:cr)
-                }                               
+                }
                 on_widget_selected {
                   reset
                 }
@@ -764,9 +782,9 @@ class GarderieRainbowDailyAgenda
             }
                                                                                                                                                                                                                                                                                                                                                                 
                                                                                                                                                                                                           
-          } 
+          }
         
-        }              
+        }
             
       }
             
@@ -776,9 +794,9 @@ class GarderieRainbowDailyAgenda
       new_drink = @child.new_drink
       if new_drink.valid?
         @child.add_drink
-        @new_drink_inputs[:milk_time].swt_widget.set_focus
+        @new_drink_inputs[:milk_time].set_focus
       else
-        @new_drink_inputs[new_drink.errors.keys.first].swt_widget.set_focus
+        @new_drink_inputs[new_drink.errors.keys.first].set_focus
       end
       @new_drink_labels.each do |attribute, label|
         label.content {
@@ -786,15 +804,15 @@ class GarderieRainbowDailyAgenda
           tool_tip_text new_drink.errors.keys.include?(attribute) ? new_drink.errors[attribute].first : nil
         }
       end
-    end    
+    end
        
     def add_potty_time
       new_potty_time = @child.new_potty_time
       if new_potty_time.valid?
         @child.add_potty_time
-        @new_potty_time_inputs[:change_time].swt_widget.set_focus
+        @new_potty_time_inputs[:change_time].set_focus
       else
-        @new_potty_time_inputs[new_potty_time.errors.keys.first].swt_widget.set_focus
+        @new_potty_time_inputs[new_potty_time.errors.keys.first].set_focus
       end
       @new_potty_time_labels.each do |attribute, label|
         label.content {
@@ -802,11 +820,11 @@ class GarderieRainbowDailyAgenda
           tool_tip_text new_potty_time.errors.keys.include?(attribute) ? new_potty_time.errors[attribute].first : nil
         }
       end
-    end       
+    end
     
     def validate
       unless @child.valid?
-        @required_inputs[@child.errors.keys.first].swt_widget.set_focus
+        @required_inputs[@child.errors.keys.first].set_focus
       end
       @required_labels.each do |attribute, label|
         label.content {
@@ -823,7 +841,7 @@ class GarderieRainbowDailyAgenda
       async_exec {
         message_box {
           text 'Child Report Submitted!'
-          message res.message
+          message 'Child Report Submitted!'
         }.open
       }
       return
@@ -833,7 +851,7 @@ class GarderieRainbowDailyAgenda
       
       unless @email_service.valid?
         @preferences = preferences
-        @preferences.open 
+        @preferences.open
         return if @preferences.cancelled?
       end
     
@@ -878,8 +896,8 @@ class GarderieRainbowDailyAgenda
           text body_root.shell.text
           message 'Email Sent!'
         }.open
-        reset        
-      end  
+        reset
+      end
     rescue Exception => e
       Glimmer::Config.logger.error e.full_message
       message_box(body_root, :icon_error) {
@@ -891,7 +909,7 @@ class GarderieRainbowDailyAgenda
     def reset
       @meal_serving_radio_groups.values.each(&:reset)
       self.child = Child.new
-      @initial_focus_widget.setFocus
+      @initial_focus_widget.set_focus
     end
 
     def display_about_dialog
@@ -899,7 +917,7 @@ class GarderieRainbowDailyAgenda
         text 'About'
         message "Garderie Rainbow Daily Agenda #{VERSION}\n\n#{LICENSE}"
       }.open
-    end    
+    end
 
   end
 end

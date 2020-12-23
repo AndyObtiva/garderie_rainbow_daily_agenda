@@ -5,7 +5,7 @@ require 'models/garderie_rainbow_daily_agenda/potty_time'
 
 class GarderieRainbowDailyAgenda
   class Child
-    include ActiveModel::Model
+#     include ActiveModel::Model
   
     MEAL_TYPES = [:breakfast, :lunch, :pm_snack]
     ATTRIBUTES = [
@@ -27,12 +27,12 @@ class GarderieRainbowDailyAgenda
       :mood
     ]
     attr_accessor :nap_time_start_java, :nap_time_end_java, *ATTRIBUTES
-    rubyserial_only *ATTRIBUTES
+#     rubyserial_only *ATTRIBUTES
     attr_writer :new_drink, :new_potty_time
     
-    validates :name, presence: true
-    validates :educator_name, presence: true
-    validates :email, presence: true, email: true
+#     validates :name, presence: true
+#     validates :educator_name, presence: true
+#     validates :email, presence: true, email: true
     
     def nap_time_start_string
       nap_time_start&.strftime('%I:%M %p')      

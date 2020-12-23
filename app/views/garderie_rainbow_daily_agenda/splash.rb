@@ -18,7 +18,7 @@ class GarderieRainbowDailyAgenda
             grid_layout(1, false) {
               margin_width 0
               margin_height 0
-            }            
+            }
             label {
               background :transparent
               image @splash_image
