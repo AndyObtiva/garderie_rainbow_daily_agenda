@@ -9,6 +9,19 @@ pd 'views/garderie_rainbow_daily_agenda/meal_serving_radio_group'
 require 'views/garderie_rainbow_daily_agenda/meal_serving_radio_group'
 # require 'views/garderie_rainbow_daily_agenda/preferences'
 
+require 'yasl'
+YASL::UNSERIALIZABLE_DATA_TYPES << 'Glimmer::DataBinding::Observer::Registration'
+YASL::UNSERIALIZABLE_DATA_TYPES << 'Glimmer::DataBinding::Observer::Proc'
+YASL::UNSERIALIZABLE_DATA_TYPES << 'Glimmer::DataBinding::ObservableModel::Notifier'
+
+begin
+  puts 'loading child'
+  child = YASL.load(str, whitelist_classes: [GarderieRainbowDailyAgenda::Child, GarderieRainbowDailyAgenda::Meal, GarderieRainbowDailyAgenda::Mood, GarderieRainbowDailyAgenda::Drink, GarderieRainbowDailyAgenda::PottyTime])
+  pd child: child
+rescue => e
+  pd e
+end
+
 class GarderieRainbowDailyAgenda
   class AppView
     include Glimmer::UI::CustomShell
@@ -835,9 +848,15 @@ class GarderieRainbowDailyAgenda
     end
     
     def send_email
-      pd RubySerial.dump(@child)
-      uri = URI('http://localhost:3000/child_reports.json')
-      res = Net::HTTP.post_form(uri, 'child_report' => RubySerial.dump(@child))
+      result = YASL.dump(@child)
+#       uri = URI('http://localhost:3000/child_reports.json')
+      uri = 'http://localhost:3000/child_reports.json'
+#       pd send_email_dump_result: result
+#       res = Net::HTTP.post_form(uri, 'child_report' => RubySerial.dump(@child))
+      data = {'child_report' => result}
+      pd data: data
+      res = Net::HTTP.post_form(uri, data)
+      
       async_exec {
         message_box {
           text 'Child Report Submitted!'
@@ -846,58 +865,58 @@ class GarderieRainbowDailyAgenda
       }
       return
       
-      validate
-      return unless @child.valid?
-      
-      unless @email_service.valid?
-        @preferences = preferences
-        @preferences.open
-        return if @preferences.cancelled?
-      end
-    
-      @progress_dialog = dialog {
-        grid_layout(1, false)
-        text body_root.shell.text
-        label(:center) {
-          layout_data :fill, :top, true, false
-          text "Soyez Patienter / Sending Email To \"#{@child.name}\" <#{@child.email}>..."
-          font height: 16
-        }
-        progress_bar(:indeterminate) {
-          layout_data(:fill, :fill, true, true)
-        }
-      }
-
-      send_email_done = false
-      Thread.new do
-        begin
-          email_message = EmailMessage.new(@child)
-          @email_service.deliver!(email_message.to_mail)
-          send_email_done = true
-          async_exec {
-            @progress_dialog.close
-          }
-        rescue Exception => e
-          Glimmer::Config.logger.error e.full_message
-          async_exec {
-            @progress_dialog.close
-            message_box(body_root, :icon_error) {
-              text body_root.shell.text
-              message "Email Error!\n#{e.full_message}"
-            }.open
-          }
-        end
-      end
-        
-      @progress_dialog.open unless send_email_done
-      
-      if send_email_done
-        message_box(body_root, :icon_information) {
-          text body_root.shell.text
-          message 'Email Sent!'
-        }.open
-        reset
-      end
+#       validate
+#       return unless @child.valid?
+#
+#       unless @email_service.valid?
+#         @preferences = preferences
+#         @preferences.open
+#         return if @preferences.cancelled?
+#       end
+#
+#       @progress_dialog = dialog {
+#         grid_layout(1, false)
+#         text body_root.shell.text
+#         label(:center) {
+#           layout_data :fill, :top, true, false
+#           text "Soyez Patienter / Sending Email To \"#{@child.name}\" <#{@child.email}>..."
+#           font height: 16
+#         }
+#         progress_bar(:indeterminate) {
+#           layout_data(:fill, :fill, true, true)
+#         }
+#       }
+#
+#       send_email_done = false
+#       Thread.new do
+#         begin
+#           email_message = EmailMessage.new(@child)
+#           @email_service.deliver!(email_message.to_mail)
+#           send_email_done = true
+#           async_exec {
+#             @progress_dialog.close
+#           }
+#         rescue Exception => e
+#           Glimmer::Config.logger.error e.full_message
+#           async_exec {
+#             @progress_dialog.close
+#             message_box(body_root, :icon_error) {
+#               text body_root.shell.text
+#               message "Email Error!\n#{e.full_message}"
+#             }.open
+#           }
+#         end
+#       end
+#
+#       @progress_dialog.open unless send_email_done
+#
+#       if send_email_done
+#         message_box(body_root, :icon_information) {
+#           text body_root.shell.text
+#           message 'Email Sent!'
+#         }.open
+#         reset
+#       end
     rescue Exception => e
       Glimmer::Config.logger.error e.full_message
       message_box(body_root, :icon_error) {

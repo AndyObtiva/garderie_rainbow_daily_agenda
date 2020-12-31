@@ -4,8 +4,8 @@ class GarderieRainbowDailyAgenda
 #     include ActiveModel::Model
     include Glimmer
 
-    ATTRIBUTES = [ :change_time, :wet, :bm, :diaper, :toilet ]
-    attr_accessor :change_time_java, *ATTRIBUTES
+#     ATTRIBUTES = [ :change_time, :wet, :bm, :diaper, :toilet ]
+#     attr_accessor :change_time_java, *ATTRIBUTES
 #     rubyserial_only *ATTRIBUTES
         
 #     validates :change_time, presence: true

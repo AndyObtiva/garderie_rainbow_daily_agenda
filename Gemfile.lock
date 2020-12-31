@@ -169,6 +169,7 @@ GEM
       rake (>= 10.1.0)
       rubyzip (~> 1.0, < 1.4)
     wisper (2.0.1)
+    yasl (0.1.0)
 
 PLATFORMS
   java
@@ -189,6 +190,7 @@ DEPENDENCIES
   ruby-serial (= 1.0.3.20130731)
   simplecov
   warbler (= 2.0.5)
+  yasl
 
 BUNDLED WITH
    2.2.2

@@ -32,12 +32,14 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'ruby-serial'
+#gem 'rubysl-yaml'
+gem 'yasl', path: '../../../yasl'
 gem 'mail', '~> 2.7.1'
 gem 'email_validator', '~> 2.0.1'
 gem 'opal-rails', '~> 1.1.2'
 gem 'opal-async', '~> 1.2.0', path: '../../../opal-async'
 gem 'opal-jquery', '~> 0.4.4'
+gem 'glimmer', path: '../../../glimmer'
 gem 'glimmer-dsl-opal', '~> 0.9.1', path: '../../../glimmer-dsl-opal'
 gem 'glimmer-dsl-xml', '~> 1.1.0', require: false
 gem 'glimmer-dsl-css', '~> 1.1.0', require: false

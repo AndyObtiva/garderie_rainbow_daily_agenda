@@ -1,9 +1,9 @@
-class GarderieRainbowDailyAgenda  
+class GarderieRainbowDailyAgenda
   class EmailService
     include ActiveModel::Model
     
     ATTRIBUTES = [:address, :authentication, :port, :username, :password, :use_ssl, :from_email, :from_name]
-    ATTRIBUTES_REQUIRED = ATTRIBUTES.reject {|a| a == :use_ssl}    
+    ATTRIBUTES_REQUIRED = ATTRIBUTES.reject {|a| a == :use_ssl}
                 
     attr_accessor *ATTRIBUTES
     
@@ -30,7 +30,7 @@ class GarderieRainbowDailyAgenda
       self.username = 'garderierainbow@hotmail.com'
       self.password = nil
       self.from_email = 'garderierainbow@hotmail.com'
-      self.from_name = 'Garderie Rainbow'    
+      self.from_name = 'Garderie Rainbow'
     end
     
     def reset
@@ -78,9 +78,9 @@ class GarderieRainbowDailyAgenda
     
     def config_file
       @config_file ||= File.join('config', 'email_service.yml')
-    end        
+    end
     
-    def save      
+    def save
       config_yaml = YAML.dump(attributes)
       FileUtils.mkdir_p(File.dirname(config_file))
       File.write(config_file, rsa.public_encrypt(config_yaml)) unless config_yaml.to_s.empty?

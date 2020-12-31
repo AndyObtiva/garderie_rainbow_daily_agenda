@@ -21,13 +21,13 @@ class GarderieRainbowDailyAgenda
         attachment1 = File.join('images', 'garderie_rainbow_daily_agenda_logo.png')
         FileUtils.cp(File.join(Rails.root.to_s, 'app', 'assets', 'images', 'garderie_rainbow_daily_agenda_logo.png'), attachment1) unless File.exist?(attachment1)
         mail.add_file(attachment1)
-        attachment2 = File.join('images', 'baby_milk_bottle.png') 
+        attachment2 = File.join('images', 'baby_milk_bottle.png')
         FileUtils.cp(File.join(Rails.root.to_s, 'app', 'assets', 'images', 'baby_milk_bottle.png'), attachment2) unless File.exist?(attachment2)
-        mail.add_file(attachment2) 
+        mail.add_file(attachment2)
         attachment3 = File.join('images', 'milk_glass.png')
         FileUtils.cp(File.join(Rails.root.to_s, 'app', 'assets', 'images', 'milk_glass.png'), attachment3) unless File.exist?(attachment3)
-        mail.add_file(attachment3) 
-        body = html(mail.attachments)
+        mail.add_file(attachment3)
+        body = pd html(mail.attachments)
         mail.html_part = Mail::Part.new do
           content_type 'text/html; charset=UTF-8'
           body body
@@ -80,13 +80,13 @@ class GarderieRainbowDailyAgenda
                                       <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><b><span lang="EN-US" style="font-size: 12pt;">Déjeuner/Breakfast🥐</span></b><b><span lang="EN-US" style="font-size: 12pt; font-family: Color;">🍞</span></b><span lang="EN-US" style="font-size: 12pt;"></span></div>
                                    </td>
                                    <td colspan="1" rowspan="1" width="128" style="width: 96.3pt; border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
-                                      <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child.meals[:breakfast].a_bit}&nbsp;</span><span lang="EN-US"></span></p>
+                                      <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child&.meals&.[](:breakfast)&.a_bit}&nbsp;</span><span lang="EN-US"></span></p>
                                    </td>
                                    <td colspan="1" rowspan="1" width="136" style="width: 101.95pt; border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
-                                      <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child.meals[:breakfast].one_serving}&nbsp;</span><span lang="EN-US"></span></p>
+                                      <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child&.meals&.[](:breakfast)&.one_serving}&nbsp;</span><span lang="EN-US"></span></p>
                                    </td>
                                    <td colspan="1" rowspan="1" width="151" style="border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
-                                      <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child.meals[:breakfast].two_servings}&nbsp;</span><span lang="EN-US"></span></p>
+                                      <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child&.meals&.[](:breakfast)&.two_servings}&nbsp;</span><span lang="EN-US"></span></p>
                                    </td>
                                 </tr>
                                 <tr>
@@ -94,13 +94,13 @@ class GarderieRainbowDailyAgenda
                                       <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><b><span lang="EN-US" style="font-size: 12pt;">Dîner/Lunch&nbsp;</span></b><b><span lang="EN-US" style="font-size: 12pt; font-family: Color;">🍽🍗🍲</span></b><span lang="EN-US" style="font-size: 12pt;"></span></div>
                                    </td>
                                    <td colspan="1" rowspan="1" width="128" style="width: 96.3pt; border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
-                                      <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child.meals[:lunch].a_bit}&nbsp;</span><span lang="EN-US"></span></p>
+                                      <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child&.meals&.[](:lunch)&.a_bit}&nbsp;</span><span lang="EN-US"></span></p>
                                    </td>
                                    <td colspan="1" rowspan="1" width="136" style="width: 101.95pt; border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
-                                      <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child.meals[:lunch].one_serving}&nbsp;</span><span lang="EN-US"></span></p>
+                                      <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child&.meals&.[](:lunch)&.one_serving}&nbsp;</span><span lang="EN-US"></span></p>
                                    </td>
                                    <td colspan="1" rowspan="1" width="151" style="border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
-                                      <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child.meals[:lunch].two_servings}&nbsp;</span><span lang="EN-US"></span></p>
+                                      <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child&.meals&.[](:lunch)&.two_servings}&nbsp;</span><span lang="EN-US"></span></p>
                                    </td>
                                 </tr>
                                 <tr>
@@ -108,13 +108,13 @@ class GarderieRainbowDailyAgenda
                                       <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><b><span lang="FR" style="font-size: 12pt;">Collation d’aprés midi/PM Snack&nbsp;</span></b><b><span lang="EN-US" style="font-size: 12pt; font-family: Color;">🍎🍐🍌🍉</span></b><span lang="FR" style="font-size: 12pt;"></span></div>
                                    </td>
                                    <td colspan="1" rowspan="1" width="128" style="width: 96.3pt; border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
-                                      <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="FR" style="font-size: 14pt;">#{'x' if @child.meals[:pm_snack].a_bit}&nbsp;</span><span lang="FR"></span></p>
+                                      <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="FR" style="font-size: 14pt;">#{'x' if @child&.meals&.[](:pm_snack)&.a_bit}&nbsp;</span><span lang="FR"></span></p>
                                    </td>
                                    <td colspan="1" rowspan="1" width="136" style="width: 101.95pt; border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
-                                      <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child.meals[:pm_snack].one_serving}&nbsp;</span><span lang="EN-US"></span></p>
+                                      <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if @child&.meals&.[](:pm_snack)&.one_serving}&nbsp;</span><span lang="EN-US"></span></p>
                                    </td>
                                    <td colspan="1" rowspan="1" width="151" style="border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt; width: 199px;">
-                                      <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="FR" style="font-size: 14pt;">#{'x' if @child.meals[:pm_snack].two_servings}&nbsp;</span><span lang="FR"></span></p>
+                                      <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="FR" style="font-size: 14pt;">#{'x' if @child&.meals&.[](:pm_snack)&.two_servings}&nbsp;</span><span lang="FR"></span></p>
                                    </td>
                                 </tr>
                              </tbody>
@@ -135,7 +135,7 @@ class GarderieRainbowDailyAgenda
                                    </td>
                                 </tr>
                                 #{
-                                  @child.drinks.empty? ?
+                                  @child&.drinks&.empty? ?
                                   <<~PARTIAL_HTML
                                 <tr>
                                    <td colspan="1" rowspan="1" width="312" style="width: 233.75pt; border-right-width: 1pt; border-style: none solid solid; border-right-color: windowtext; border-bottom-width: 1pt; border-bottom-color: windowtext; border-left-width: 1pt; border-left-color: windowtext; padding: 0cm 5.4pt;">
@@ -144,9 +144,9 @@ class GarderieRainbowDailyAgenda
                                    <td colspan="1" rowspan="1" width="312" style="border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
                                       <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><b><span lang="EN-US" style="font-size: 14pt; color: red;"></span></b></div>
                                    </td>
-                                </tr>                                  
+                                </tr>
                                   PARTIAL_HTML
-                                  : @child.drinks.map do |drink|
+                                  : @child&.drinks&.map do |drink|
                                   <<~PARTIAL_HTML
                                 <tr>
                                    <td colspan="1" rowspan="1" width="312" style="width: 233.75pt; border-right-width: 1pt; border-style: none solid solid; border-right-color: windowtext; border-bottom-width: 1pt; border-bottom-color: windowtext; border-left-width: 1pt; border-left-color: windowtext; padding: 0cm 5.4pt;">
@@ -155,9 +155,9 @@ class GarderieRainbowDailyAgenda
                                    <td colspan="1" rowspan="1" width="312" style="border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
                                       <div style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;">#{drink.fluid_amount}<b><span lang="EN-US" style="font-size: 14pt; color: red;"></span></b></div>
                                    </td>
-                                </tr>                                  
+                                </tr>
                                   PARTIAL_HTML
-                                  end.join("\n")
+                                  end&.join("\n")
                                 }
                              </tbody>
                           </table>
@@ -195,7 +195,7 @@ class GarderieRainbowDailyAgenda
                                          </td>
                                       </tr>
                                       #{
-                                        @child.potty_times.empty? ?
+                                        @child&.potty_times&.empty? ?
                                           <<~PARTIAL_HTML
                                       <tr>
                                          <td colspan="1" rowspan="1" width="131" style="width: 98.2pt; border-right-width: 1pt; border-style: none solid solid; border-right-color: windowtext; border-bottom-width: 1pt; border-bottom-color: windowtext; border-left-width: 1pt; border-left-color: windowtext; padding: 0cm 5.4pt;">
@@ -215,7 +215,7 @@ class GarderieRainbowDailyAgenda
                                          </td>
                                       </tr>
                                           PARTIAL_HTML
-                                        : @child.potty_times.map do |potty_time|
+                                        : @child&.potty_times&.map do |potty_time|
                                           <<~PARTIAL_HTML
                                       <tr>
                                          <td colspan="1" rowspan="1" width="131" style="width: 98.2pt; border-right-width: 1pt; border-style: none solid solid; border-right-color: windowtext; border-bottom-width: 1pt; border-bottom-color: windowtext; border-left-width: 1pt; border-left-color: windowtext; padding: 0cm 5.4pt;">
@@ -233,9 +233,9 @@ class GarderieRainbowDailyAgenda
                                          <td colspan="1" rowspan="1" width="144" style="border-style: none solid solid none; border-bottom-width: 1pt; border-bottom-color: windowtext; border-right-width: 1pt; border-right-color: windowtext; padding: 0cm 5.4pt;">
                                             <p style="margin: 0cm 0cm 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; line-height: normal;"><span lang="EN-US" style="font-size: 14pt;">#{'x' if potty_time.toilet}&nbsp;</span></p>
                                          </td>
-                                      </tr>                                          
+                                      </tr>
                                           PARTIAL_HTML
-                                        end.join("\n")                        
+                                        end&.join("\n")
                                       }
                                    </tbody>
                                 </table>

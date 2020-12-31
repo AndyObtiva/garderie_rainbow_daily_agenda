@@ -61,7 +61,7 @@ class GarderieRainbowDailyAgenda
     }
     
     def reset
-      @radios.values.each {|radio_proxy| radio_proxy  .selection = nil}
+      @radios.values.each {|radio_proxy| radio_proxy.selection = nil}
     end
 
   end

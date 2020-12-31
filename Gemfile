@@ -7,6 +7,7 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 gem 'activemodel', '~> 5.2.4.3', require: 'active_model'
 gem 'email_validator', '~> 2.0.1'
 gem 'ruby-serial', '1.0.3.20130731'
+gem 'yasl'
 
 group :development do
   gem 'glimmer-cw-cdatetime-nebula', '>= 1.5.0.1.1'
